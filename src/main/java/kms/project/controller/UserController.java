@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,11 +24,16 @@ public class UserController {
 
     @PostMapping("/user/idcheck")
     @ResponseBody
-    public String idcheck(String user_id, String user_pw){
-        log.info("user_id = {} ,  user_pw = {}",user_id,user_pw);
-
+    public String idcheck(String user_id, HttpServletRequest request){
+        log.info("UserController.idcheck()");
         UserVO findUserVO = userRepository.findUser(user_id);
-        log.info("findUser_id={} , findUser_pw = {}",findUserVO.getUser_id(),findUserVO.getUser_pw());
+        String result ="";
+        if(findUserVO == null){
+            result="잘못된 아이디 입니다";
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("user",findUserVO);
         return "ok";
+
     }
 }

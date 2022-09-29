@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .findIdPw{
+            position: relative;
+            left: 0;
+        }
+
+    </style>
+</head>
+<body>
+<div class="navbar navbar-dark bg-dark shadow-sm" th:fragment="mainbar">
+    <div class="container">
+        <a href="#" class="navbar-brand d-flex align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <strong>Album</strong>
+        </a>
+
+        <!--로그인 모달-->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">로그인</button>
+
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">LOGIN</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal_main">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="user_id" placeholder="ID">
+                            <label for="user_id">ID</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="password" class="form-control" id="user_pw" placeholder="Password">
+                            <label for="user_pw">Password</label>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" id="find">id/pw 찾기</button>
+                            <button type="button" class="btn btn-light" >회원 가입</button>
+                            <button type="button" class="btn btn-light" id="login">로그인</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

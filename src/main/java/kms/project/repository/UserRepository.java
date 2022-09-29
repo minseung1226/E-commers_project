@@ -14,7 +14,6 @@ public class UserRepository {
     private UserMapper userMapper;
 
     public UserVO findUser(String user_id){
-        log.info("userMapper ={}",userMapper.getClass());
         return userMapper.findUser(user_id);
     }
 }
