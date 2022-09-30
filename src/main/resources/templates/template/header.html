@@ -3,13 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <style>
-        .findIdPw{
-            position: relative;
-            left: 0;
-        }
 
-    </style>
 </head>
 <body>
 <div class="navbar navbar-dark bg-dark shadow-sm" th:fragment="mainbar">
@@ -20,7 +14,8 @@
         </a>
 
         <!--로그인 모달-->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">로그인</button>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" >로그인</button>
 
 
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -54,7 +49,41 @@
         </div>
     </div>
 
-</div>
+    <script th:inline="javascript">
+        $(function (){
+            $('#login').click(function (){
 
+                if($('#user_id').val()=="" ||$('#user_id').val()==null){
+                    alert("아이디 입력바람");
+                    return ;
+                }if($('#user_pw').val()=="" || $('#user_pw').val()==null){
+                    alert("비번 입력바람");
+                    return ;
+                }
+                $.ajax({
+                    url:"/user/idcheck",
+                    dataType:String.class,
+                    type:"POST",
+                    data:{'user_id':$('#user_id').val(),'user_pw':$('#user_pw').val()},
+                    success:function (data){
+                        if(data=="ok"){
+                            alert("ok");
+                        }
+                        else if(data=="잘못된 아이디 입니다"){
+                            alert(data);
+                        }
+                        else{
+                            alert(data);
+                        }
+                    },
+                    error:function(data){
+                        alert("error");
+                    }
+
+                })
+            })
+        })
+    </script>
+</div>
 </body>
 </html>

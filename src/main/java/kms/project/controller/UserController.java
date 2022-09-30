@@ -24,16 +24,23 @@ public class UserController {
 
     @PostMapping("/user/idcheck")
     @ResponseBody
-    public String idcheck(String user_id, HttpServletRequest request){
-        log.info("UserController.idcheck()");
+    public String idcheck(String user_id,String user_pw, HttpServletRequest request){
+        log.info("UserController.idcheck() user_id={} , user_pw={}",user_id,user_pw);
         UserVO findUserVO = userRepository.findUser(user_id);
+        log.info("findUserVO.user_id={} , findUserVO.user_pw={}",findUserVO.getUser_id(),findUserVO.getUser_pw());
         String result ="";
         if(findUserVO == null){
             result="잘못된 아이디 입니다";
         }
-        HttpSession session = request.getSession();
-        session.setAttribute("user",findUserVO);
-        return "ok";
+        else if(!findUserVO.getUser_pw().equals(user_pw)){
+            result="잘못된 비밀번호 입니다"   ;
+        }
+        else {
+            HttpSession session = request.getSession();
+            session.setAttribute("user", findUserVO);
+            result="ok";
+        }
+        return result;
 
     }
 }
