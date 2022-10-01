@@ -45,8 +45,8 @@
 
 </head>
 <body>
-
-<header th:insert="~{template/header :: mainbar}"></header>
+<header th:if="${session.isEmpty()}" th:insert="~{template/header :: no_user_mainbar}"></header>
+<header th:unless="${session.isEmpty()}" th:insert="~{template/header :: user_mainbar}"></header>
 
 <main>
 
