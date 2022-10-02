@@ -13,10 +13,12 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 public class HomeController {
 
-    @GetMapping("/")
+    @GetMapping(value = {"/","user/home"})
     public String home(Model model){
         log.info("HomeController 시작");
+/*
         model.addAttribute("user",new UserVO());
+*/
 
         return "home";
     }

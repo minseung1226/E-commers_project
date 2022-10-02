@@ -1,10 +1,11 @@
 package kms.project.vo;
 
+
 public class UserVO {
     private int user_code; // 유저 인덱스
     private int user_status; // 회원 상태
-    private String user_id, user_pw,user_name,user_phone,user_email,user_addr1,user_addr2,user_regdate,user_con_date;
-    //              아이디   비밀번호  회원명     전화번호    이메일         주소      주소      가입날짜        최근 접속날짜
+    private String user_id, user_pw,user_pw2,user_name,user_phone,user_email,user_addr1,user_addr2,user_regdate,user_con_date , user_birth,user_sex;
+    //              아이디   비밀번호  회원명     전화번호    이메일         주소      주소      가입날짜        최근 접속날짜    생년월일     성별
 
 
     public int getUser_code() {
@@ -37,6 +38,14 @@ public class UserVO {
 
     public void setUser_pw(String user_pw) {
         this.user_pw = user_pw;
+    }
+
+    public String getUser_pw2() {
+        return user_pw2;
+    }
+
+    public void setUser_pw2(String user_pw2) {
+        this.user_pw2 = user_pw2;
     }
 
     public String getUser_name() {
@@ -93,5 +102,21 @@ public class UserVO {
 
     public void setUser_con_date(String user_con_date) {
         this.user_con_date = user_con_date;
+    }
+
+    public String getUser_birth() {
+        return user_birth;
+    }
+
+    public void setUser_birth(String user_birth) {
+        this.user_birth = user_birth;
+    }
+
+    public String getUser_sex() {
+        return user_sex;
+    }
+
+    public void setUser_sex(String user_sex) {
+        this.user_sex = user_sex;
     }
 }

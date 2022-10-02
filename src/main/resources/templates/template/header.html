@@ -41,7 +41,7 @@
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light" id="find">id/pw 찾기</button>
-                                <button type="button" class="btn btn-light" >회원 가입</button>
+                                <button type="button" class="btn btn-light" id="join" >회원 가입</button>
                                 <button type="button" class="btn btn-light" id="login">로그인</button>
                             </div>
                         </div>
@@ -54,6 +54,12 @@
 
     <script th:inline="javascript">
         $(function (){
+            $('#join').click(function (){
+                location.href="/user/joinForm";
+            })
+        })
+
+        $(function (){
             $('#login').click(function (){
 
                 if($('#user_id').val()=="" ||$('#user_id').val()==null){
@@ -64,7 +70,7 @@
                     return ;
                 }
                 $.ajax({
-                    url:"/user/idcheck",
+                    url:"/user/userCheck",
                     dataType:String.class,
                     type:"POST",
                     data:{'user_id':$('#user_id').val(),'user_pw':$('#user_pw').val()},
@@ -102,7 +108,7 @@
     <script th:inline="javascript">
         $(function (){
             $('#logout').click(function (){
-                location.href="/";
+                location.href="user/logout";
             })
         })
 

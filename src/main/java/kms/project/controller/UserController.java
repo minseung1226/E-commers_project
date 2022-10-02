@@ -1,31 +1,40 @@
 package kms.project.controller;
 
-import kms.project.dto.UserDto;
+import kms.project.controller.validation.UserValidator;
 import kms.project.repository.UserRepository;
 import kms.project.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @Slf4j
 public class UserController {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final UserValidator validator;
 
-    @PostMapping("/user/idcheck")
+    public UserController(UserRepository userRepository, UserValidator validator) {
+        this.userRepository = userRepository;
+        this.validator = validator;
+    }
+
+    @InitBinder
+    public void init(WebDataBinder dataBinder){
+        dataBinder.addValidators(validator);
+    }
+
+    @PostMapping("/user/userCheck")
     @ResponseBody
-    public String idCheck(String user_id,String user_pw, HttpServletRequest request){
+    public String userCheck(String user_id,String user_pw, HttpServletRequest request){
         log.info("UserController.idcheck() user_id={} , user_pw={}",user_id,user_pw);
         UserVO findUserVO = userRepository.findUser(user_id);
         log.info("findUserVO.user_id={} , findUserVO.user_pw={}",findUserVO.getUser_id(),findUserVO.getUser_pw());
@@ -45,10 +54,46 @@ public class UserController {
 
     }
     @GetMapping("/user/logout")
-    @ResponseBody
     public String logout(HttpServletRequest request){
         HttpSession session = request.getSession();
+        log.info("UserController.logout");
         session.invalidate();
-        return "redirect :";
+
+        return "redirect:/";
+    }
+
+
+    @PostMapping("user/idCheck")
+    @ResponseBody
+    public String idCheck(String user_id){
+        log.info("userController.idCheck start");
+        UserVO findUser = userRepository.findUser(user_id);
+        log.info("user_id = {} , findUser.getUser_id={}",user_id,findUser.getUser_id());
+        String result="x";
+        if(findUser.getUser_id().equals(user_id)){
+            result="ok";
+
+        }
+
+    log.info("result = {}",result);
+        return result;
+    }
+
+    @GetMapping("user/joinForm")
+    public String edit(Model model){
+        model.addAttribute("user",new UserVO());
+
+        return "joinForm";
+    }
+    @PostMapping("/user/joinForm")
+    public String join(@Validated @ModelAttribute("user") UserVO user, BindingResult result,Model model){
+        log.info("UserController.join 시작");
+        if(result.hasErrors()){
+
+            log.info("error 발견 = {}" ,result);
+            return "joinForm";
+        }
+
+        return "/";
     }
 }
