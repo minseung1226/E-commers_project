@@ -4,7 +4,6 @@ import kms.project.controller.validation.UserValidator;
 import kms.project.repository.UserRepository;
 import kms.project.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -89,6 +88,9 @@ public class UserController {
             return "joinForm";
         }
 
-        return "/";
+        userRepository.userInsert(user);
+
+
+        return "redirect:/";
     }
 }

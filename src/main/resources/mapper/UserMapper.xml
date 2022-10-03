@@ -2,5 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kms.project.repository.mapper.UserMapper">
+    <insert id="userInsert" parameterType="UserVO">
+        insert into project.User (user_id,user_pw,user_name,user_sex,user_birth,user_phone,user_addr1,user_addr2,user_regdate,user_con_date,user_status)
+                values(#{userVO.user_id},#{userVO.user_pw},#{userVO.user_name},#{userVO.user_sex},
+                       #{userVO.user_birth},#{userVO.user_phone},#{userVO.user_addr1},#{userVO.user_addr2},current_date,current_date,0)
 
+
+    </insert>
 </mapper>

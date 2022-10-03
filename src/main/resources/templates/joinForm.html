@@ -134,13 +134,13 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="user_pw">비밀번호</label>
-                            <input type="text" class="form-control" id="user_pw" th:field="*{user_pw}"
+                            <input type="password" class="form-control" id="user_pw" th:field="*{user_pw}"
                                    th:errorclass="field-error" placeholder="" value="" required>
                             <div class="field-error" th:errors="*{user_pw}"></div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="user_pw2">비밀번호확인</label>
-                            <input type="text" class="form-control" id="user_pw2" th:field="*{user_pw2}"
+                            <input type="password" class="form-control" id="user_pw2" th:field="*{user_pw2}"
                                    th:errorclass="field-error" placeholder="" value="" required>
                             <div class="field-error" th:errors="*{user_pw2}"></div>
                         </div>
