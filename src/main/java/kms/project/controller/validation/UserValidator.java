@@ -16,13 +16,27 @@ public class UserValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        log.info("UserValidator 시작");
         UserVO user = (UserVO) target;
+        emptyError(errors,new String[]{"user_id","user_pw","user_name","user_phone","user_addr1","user_sex","user_birth"},"empty");
 
-        emptyError(errors,new String[]{"user_id","user_pw","user_name","user_phone","user_addr1","user_sex"},"empty");
-        log.info("UserValidator 종료");
+
+        if(!user.getUser_pw2().equals(user.getUser_pw())){
+            errors.rejectValue("user_pw2","pwMismatch");
+        }
+        if(user.getUser_birth().length()!=6){
+            errors.rejectValue("user_birth","misMatch");
+        }
+        if(user.getUser_phone().length()!=13){
+            errors.rejectValue("user_phone","misMatch");
+        }
+
+
+
+
     }
 
+
+    //값을 입력하지않은 input error
     private void emptyError(Errors error,String[] param,String code){
         log.info("UserValidator.emptyError() 시작");
         for (String arr : param) {

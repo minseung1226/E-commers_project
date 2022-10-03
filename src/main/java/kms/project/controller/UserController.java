@@ -65,18 +65,13 @@ public class UserController {
 
     @PostMapping("user/idCheck")
     @ResponseBody
-    public String idCheck(String user_id){
+    public String idCheck(String user_id) {
         log.info("userController.idCheck start");
         UserVO findUser = userRepository.findUser(user_id);
-        log.info("user_id = {} , findUser.getUser_id={}",user_id,findUser.getUser_id());
-        String result="x";
-        if(findUser.getUser_id().equals(user_id)){
-            result="ok";
-
+        if(findUser==null){
+            return "ok";
         }
-
-    log.info("result = {}",result);
-        return result;
+        return "x";
     }
 
     @GetMapping("user/joinForm")
