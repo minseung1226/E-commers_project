@@ -18,8 +18,9 @@ public class UserRepository {
     }
 
     @Transactional
-    public void userInsert(UserVO user){
+    public int userInsert(UserVO user){
          log.info("user_id={}" , user.getUser_id());
-         userMapper.userInsert(user);
+        return userMapper.userInsert(user);
+
     }
 }

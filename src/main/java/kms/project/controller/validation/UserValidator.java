@@ -2,6 +2,7 @@ package kms.project.controller.validation;
 
 import kms.project.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
+import net.nurigo.java_sdk.api.Message;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -22,6 +23,7 @@ public class UserValidator implements Validator {
 
         if(!user.getUser_pw2().equals(user.getUser_pw())){
             errors.rejectValue("user_pw2","pwMismatch");
+
         }
         if(user.getUser_birth().length()!=6){
             errors.rejectValue("user_birth","misMatch");
@@ -45,4 +47,6 @@ public class UserValidator implements Validator {
         log.info("UserValidator.emptyError() 종료");
 
     }
+
+
 }

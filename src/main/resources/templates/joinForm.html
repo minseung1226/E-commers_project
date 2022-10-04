@@ -107,12 +107,12 @@
 
 
 
-    <body>
+
     <div class="container">
         <div class="input-form-backgroud row" >
             <div class="input-form col-md-12 mx-auto">
                 <h4 class="mb-3">회원가입</h4>
-                <form class="validation-form" th:object="${user}" action="/user/joinForm" method="post" novalidate>
+                <form class="validation-form" th:object="${user}" action="/user/join" method="post" novalidate>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="user_name">이름</label>
@@ -135,13 +135,13 @@
                         <div class="col-md-6 mb-3">
                             <label for="user_pw">비밀번호</label>
                             <input type="password" class="form-control" id="user_pw" th:field="*{user_pw}"
-                                   th:errorclass="field-error" placeholder="" value="" required>
+                                   th:errorclass="field-error"   required>
                             <div class="field-error" th:errors="*{user_pw}"></div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="user_pw2">비밀번호확인</label>
                             <input type="password" class="form-control" id="user_pw2" th:field="*{user_pw2}"
-                                   th:errorclass="field-error" placeholder="" value="" required>
+                                   th:errorclass="field-error"  required>
                             <div class="field-error" th:errors="*{user_pw2}"></div>
                         </div>
                     </div>
@@ -243,9 +243,7 @@
         $('#submit').prop('disabled',true);
     })
 
-    $(document).on("keyup", "#user_phone", function() {
-        $(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
-    });
+
 </script>
 </body>
 </html>

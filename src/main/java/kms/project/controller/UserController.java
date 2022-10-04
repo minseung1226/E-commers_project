@@ -1,11 +1,10 @@
 package kms.project.controller;
 
 import kms.project.controller.validation.UserValidator;
-import kms.project.repository.UserRepository;
+import kms.project.service.UserService;
 import kms.project.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -13,16 +12,17 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Random;
 
 @Controller
 @Slf4j
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final UserValidator validator;
 
-    public UserController(UserRepository userRepository, UserValidator validator) {
-        this.userRepository = userRepository;
+    public UserController(UserService userRepository, UserValidator validator) {
+        this.userService = userRepository;
         this.validator = validator;
     }
 
@@ -35,7 +35,7 @@ public class UserController {
     @ResponseBody
     public String userCheck(String user_id,String user_pw, HttpServletRequest request){
         log.info("UserController.idcheck() user_id={} , user_pw={}",user_id,user_pw);
-        UserVO findUserVO = userRepository.findUser(user_id);
+        UserVO findUserVO = userService.findUser(user_id);
         log.info("findUserVO.user_id={} , findUserVO.user_pw={}",findUserVO.getUser_id(),findUserVO.getUser_pw());
         String result ="";
         if(findUserVO == null){
@@ -66,31 +66,56 @@ public class UserController {
     @ResponseBody
     public String idCheck(String user_id) {
         log.info("userController.idCheck start");
-        UserVO findUser = userRepository.findUser(user_id);
+        UserVO findUser = userService.findUser(user_id);
         if(findUser==null){
             return "ok";
         }
         return "x";
     }
 
-    @GetMapping("user/joinForm")
-    public String edit(Model model){
-        model.addAttribute("user",new UserVO());
-
+    @PostMapping("user/joinForm")
+    public String joinForm(@ModelAttribute("user") UserVO user){
+        log.info("user_phone={}",user.getUser_phone());
         return "joinForm";
     }
-    @PostMapping("/user/joinForm")
-    public String join(@Validated @ModelAttribute("user") UserVO user, BindingResult result,Model model){
+    @PostMapping("/user/join")
+    public String join(@Validated @ModelAttribute("user") UserVO user, BindingResult result,HttpServletRequest request){
         log.info("UserController.join 시작");
         if(result.hasErrors()){
 
             log.info("error 발견 = {}" ,result);
+
             return "joinForm";
         }
 
-        userRepository.userInsert(user);
+        int seq = userService.userInsert(user);
 
+        HttpSession session = request.getSession();
+        session.setAttribute("user",user);
 
         return "redirect:/";
     }
+
+    @GetMapping("user/certification")
+    public String certification(){
+        return "certification";
+    }
+
+    @GetMapping("user/sendMessage")
+    @ResponseBody
+    public String sendMessage(String user_phone){
+        /*Random random = new Random();
+        String cer_num="";
+        for(int i = 0 ; i < 4 ; i++){
+            cer_num+=Integer.toString(random.nextInt(10));
+        }
+
+        log.info("수신자 번호 : {} , 인증번호 :{}",user_phone,cer_num);
+
+        return cer_num;
+
+         */
+        return user_phone;
+    }
+
 }

@@ -12,6 +12,6 @@ public interface UserMapper {
 
     @Select("select * from project.user where user_id=#{user_id}")
     UserVO findUser(String user_id);
-    void userInsert(@Param("userVO") UserVO userVO);
+    int userInsert(@Param("userVO") UserVO userVO);
 
 }
