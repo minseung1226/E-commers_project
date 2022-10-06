@@ -5,10 +5,18 @@
     <insert id="userInsert" parameterType="UserVO" useGeneratedKeys="true" keyProperty="user_code">
         insert into project.User (user_id,user_pw,user_name,user_sex,user_birth,user_phone,user_addr1,
                                   user_addr2,user_regdate,user_con_date,user_status)
-                values(#{userVO.user_id},#{userVO.user_pw},#{userVO.user_name},#{userVO.user_sex},
-                       #{userVO.user_birth},#{userVO.user_phone},#{userVO.user_addr1},
-                       #{userVO.user_addr2},current_date,current_date,0)
+                values(#{user.user_id},#{user.user_pw},#{user.user_name},#{user.user_sex},
+                       #{user.user_birth},#{user.user_phone},#{user.user_addr1},
+                       #{user.user_addr2},current_date,current_date,0)
 
 
     </insert>
+
+    <select id="findUser" parameterType="String" resultType="UserVO">
+        select * from project.user where user_id=#{user_id}
+    </select>
+
+    <update id="updatePw" parameterType="UserVO">
+        UPDATE project.user set user_pw=#{user.user_pw} where user_id=#{user.user_id}
+    </update>
 </mapper>

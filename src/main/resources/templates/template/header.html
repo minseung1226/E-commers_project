@@ -6,113 +6,205 @@
 
 </head>
 <body>
-<div class="navbar navbar-dark bg-dark shadow-sm" th:fragment="no_user_mainbar">
-    <div class="container">
-        <a href="/" class="navbar-brand d-flex align-items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-            <strong>Album</strong>
-        </a>
+<div class="headerBody" th:fragment="no_user_mainbar">
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a href="/" class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+                     stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2"
+                     viewBox="0 0 24 24">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                    <circle cx="12" cy="13" r="4"/>
+                </svg>
+                <strong>Album</strong>
+            </a>
+            <a href="/user/login">로그인</a>
+            <!--로그인 모달-->
 
-        <!--로그인 모달-->
-
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" >로그인</button>
-
-
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">LOGIN</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                        <div class="modal_main">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="user_id"  placeholder="ID">
-                                <label for="user_id">ID</label>
-                            </div>
-                            <div>
-
-                            </div>
-                            <div class="form-floating">
-                                <input type="password" class="form-control" id="user_pw" placeholder="Password">
-                                <label for="user_pw">Password</label>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-light" id="find">id/pw 찾기</button>
-                                <button type="button" class="btn btn-light" id="join" >회원 가입</button>
-                                <button type="button" class="btn btn-light" id="login">로그인</button>
-                            </div>
-                        </div>
-                </div>
-
-            </div>
 
         </div>
-    </div>
 
-    <script th:inline="javascript">
-        $(function (){
-            $('#join').click(function (){
-                location.href="/user/certification";
-            })
-        })
 
-        $(function (){
-            $('#login').click(function (){
-
-                if($('#user_id').val()=="" ||$('#user_id').val()==null){
-                    alert("아이디 입력바람");
-                    return ;
-                }if($('#user_pw').val()=="" || $('#user_pw').val()==null){
-                    alert("비번 입력바람");
-                    return ;
-                }
-                $.ajax({
-                    url:"/user/userCheck",
-                    dataType:String.class,
-                    type:"POST",
-                    data:{'user_id':$('#user_id').val(),'user_pw':$('#user_pw').val()},
-                    success:function (data){
-                        if(data=="ok"){
-                            location.href="/";
-                        }
-                        else if(data=="잘못된 아이디 입니다"){
-                            alert(data);
-                        }
-                        else{
-                            alert(data);
-                        }
-                    },
-                    error:function(data){
-                        alert("error");
-                    }
-
+        <script th:inline="javascript">
+            $(function () {
+                $('#join').click(function () {
+                    location.href = "/user/certification";
                 })
             })
-        })
-    </script>
+
+            $(function () {
+                $('#login').click(function () {
+
+                    if ($('#user_id').val() == "" || $('#user_id').val() == null) {
+                        alert("아이디 입력바람");
+                        return;
+                    }
+                    if ($('#user_pw').val() == "" || $('#user_pw').val() == null) {
+                        alert("비번 입력바람");
+                        return;
+                    }
+                    $.ajax({
+                        url: "/user/userCheck",
+                        dataType: String.class,
+                        type: "POST",
+                        data: {'user_id': $('#user_id').val(), 'user_pw': $('#user_pw').val()},
+                        success: function (data) {
+                            if (data == "ok") {
+                                location.href = "/";
+                            } else if (data == "잘못된 아이디 입니다") {
+                                alert(data);
+                            } else {
+                                alert(data);
+                            }
+                        },
+                        error: function (data) {
+                            alert("error");
+                        }
+
+                    })
+                })
+            })
+        </script>
+        <style>
+            header {
+                position: fixed;
+                top: 0;
+                width: 100%;
+                left: 0;
+                right: 0;
+            }
+            a{
+                color: white;
+                text-decoration: none;
+            }
+        </style>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Disabled</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
 </div>
 
-<div class="navbar navbar-dark bg-dark shadow-sm" th:fragment="user_mainbar">
+<div class="bodyHeader"  th:fragment="user_mainbar">
+<div class="navbar navbar-dark bg-dark shadow-sm" >
     <div class="container">
-        <a href="#" class="navbar-brand d-flex align-items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <a href="/" class="navbar-brand d-flex align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2"
+                 viewBox="0 0 24 24">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                <circle cx="12" cy="13" r="4"/>
+            </svg>
             <strong>Album</strong>
         </a>
-        <button class="btn btn-light" id="logout">로그아웃</button>
+        <ul class="nav justify-content-center">
+
+            <li class="nav-item">
+                <a class="nav-link active" href="/user/logout">로그아웃</a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/mypage/basket">장바구니</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#">마이페이지</a>
+            </li>
+        </ul>
 
 
     </div>
+
     <script th:inline="javascript">
-        $(function (){
-            $('#logout').click(function (){
-                location.href="user/logout";
+        $(function () {
+            $('#logout').click(function () {
+                location.href = "user/logout";
             })
         })
 
     </script>
+    <style>
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            left: 0;
+            right: 0;
+        }
+        a{
+            color: white;
+            text-decoration: none;
+        }
+
+    </style>
+</div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Disabled</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
 </div>
 </body>
 </html>

@@ -110,6 +110,17 @@
 
     <div class="container">
         <div class="input-form-backgroud row" >
+            <h3>
+                <a href="/" class="navbar-brand d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2"
+                         viewBox="0 0 24 24">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                        <circle cx="12" cy="13" r="4"/>
+                    </svg>
+                    <strong>Album</strong>
+                </a>
+            </h3>
             <div class="input-form col-md-12 mx-auto">
                 <h4 class="mb-3">회원가입</h4>
                 <form class="validation-form" th:object="${user}" action="/user/join" method="post" novalidate>
@@ -167,7 +178,7 @@
                     <div class="mb-3">
                         <label for="user_phone">전화번호</label>
                         <input type="text" class="form-control" id="user_phone" th:field="*{user_phone}"
-                               th:errorclass="field-error" placeholder="- 빼고 입력" required>
+                               th:errorclass="field-error" placeholder="- 빼고 입력" required readonly="true">
                         <div class="field-error" th:errors="*{user_phone}"></div>
                     </div>
                     <div class="mb-3">
@@ -212,6 +223,7 @@
 
     $(function (){
         $("#idCheck").click(function (){
+            alert($('#user_id').val());
             if($('#user_id').val()==""){
 
                 alert("필수 입력값입니다");
@@ -234,7 +246,7 @@
 
                 },
                 error:function (data){
-                    alert("error" + data);
+                    alert("error" + this.error.message);
                 }
             })
         })
