@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="mypage_sidebar">
+    <div class="flex-shrink-0 p-3 bg-white" id="sidebar" style="width: 280px;">
+        <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+            <svg class="bi me-2" width="30" height="24">
+                <use xlink:href="#"></use>
+            </svg>
+            <span class="fs-5 fw-semibold">마이페이지</span>
+        </a>
+        <ul class="list-unstyled ps-0">
+            <li class="mb-1">
+
+                <div class="collapse show" id="home-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="/mypage/account" class="link-dark rounded">계정 관리</a></li>
+                        <li><a th:href="@{/mypage/enquiryList}" class="link-dark rounded">관리자 문의</a></li>
+                        <li><a href="/mypage/basket" class="link-dark rounded">장바구니</a></li>
+                        <li><a href="#" class="link-dark rounded">상품 리뷰</a></li>
+                        <li><a href="#" class="link-dark rounded">주문 내역</a></li>
+
+
+                    </ul>
+                </div>
+            </li>
+            <li class="border-top my-3"></li>
+
+        </ul>
+    </div>
+
+</div>
+
+
+</body>
+</html>

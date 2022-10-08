@@ -26,48 +26,19 @@
 <main>
     <div class="row">
         <!--사이드 바-->
-        <div class="col-md-2 mb-3">
-            <div class="flex-shrink-0 p-3 bg-white" id="sidebar" style="width: 280px;">
-                <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
-                    <svg class="bi me-2" width="30" height="24">
-                        <use xlink:href="#"></use>
-                    </svg>
-                    <span class="fs-5 fw-semibold">마이페이지</span>
-                </a>
-                <ul class="list-unstyled ps-0">
-                    <li class="mb-1">
-
-                        <div class="collapse show" id="home-collapse">
-                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                <li><a href="#" class="link-dark rounded">Overview</a></li>
-                                <li><a href="#" class="link-dark rounded">Updates</a></li>
-                                <li><a href="#" class="link-dark rounded">Reports</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="border-top my-3"></li>
-
-                </ul>
-            </div>
+        <div class="col-md-2 mb-3" th:insert="~{template/mypageSidebar ::mypage_sidebar}">
         </div>
 
         <!--본문-->
         <div class="col-md-6 mb-3">
             <div class="cartName">
                 <h2>장바구니</h2>
+
             </div>
             <div class="card">
                 <div class="card-header">
-                    Featured
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+
                     Featured
                 </div>
                 <div class="card-body">
@@ -79,7 +50,7 @@
 
             <div class="d-grid gap-2 col-6 mx-auto" id="pay_div">
 
-                <button type="button" class="btn btn-primary btn-lg">Large button</button>
+                <button type="button" class="btn btn-primary btn-lg">0원<br>구매</button>
             </div>
 
         </div>

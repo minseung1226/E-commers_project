@@ -4,10 +4,10 @@
 <mapper namespace="kms.project.repository.mapper.UserMapper">
     <insert id="userInsert" parameterType="UserVO" useGeneratedKeys="true" keyProperty="user_code">
         insert into project.User (user_id,user_pw,user_name,user_sex,user_birth,user_phone,user_addr1,
-                                  user_addr2,user_regdate,user_con_date,user_status)
+                                  user_addr2,user_regdate,user_con_date,user_status,user_payment)
                 values(#{user.user_id},#{user.user_pw},#{user.user_name},#{user.user_sex},
                        #{user.user_birth},#{user.user_phone},#{user.user_addr1},
-                       #{user.user_addr2},current_date,current_date,0)
+                       #{user.user_addr2},current_date,current_date,0,0)
 
 
     </insert>
@@ -18,5 +18,13 @@
 
     <update id="updatePw" parameterType="UserVO">
         UPDATE project.user set user_pw=#{user.user_pw} where user_id=#{user.user_id}
+    </update>
+
+    <update id="updateUser" parameterType="UserUpdateDto">
+        update project.user set user_birth=#{user.user_birth},
+        user_phone=#{user.user_phone},user_addr1=#{user.user_addr1},user_addr2=#{user.user_addr2}
+        where user_id=#{user.user_id}
+
+
     </update>
 </mapper>

@@ -1,18 +1,21 @@
 package kms.project.controller;
 
 import kms.project.controller.validation.UserValidator;
+import kms.project.dto.UserUpdateDto;
 import kms.project.service.UserService;
 import kms.project.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.Random;
 
 @Controller
@@ -20,16 +23,18 @@ import java.util.Random;
 public class UserController {
 
     private final UserService userService;
-    private final UserValidator validator;
+    private final Validator userValidator;
 
-    public UserController(UserService userRepository, UserValidator validator) {
-        this.userService = userRepository;
-        this.validator = validator;
+    public UserController(UserService userService, Validator userValidator) {
+        this.userService = userService;
+        this.userValidator = userValidator;
     }
 
     @InitBinder
     public void init(WebDataBinder dataBinder) {
-        dataBinder.addValidators(validator);
+        dataBinder.addValidators(userValidator);
+
+
     }
 
     @PostMapping("/user/userCheck")
@@ -84,7 +89,6 @@ public class UserController {
 
     @PostMapping("/user/join")
     public String join(@Validated @ModelAttribute("user") UserVO user, BindingResult result, HttpServletRequest request) {
-        log.info("UserController.join 시작");
         if (result.hasErrors()) {
 
             log.info("error 발견 = {}", result);
@@ -108,10 +112,9 @@ public class UserController {
     @GetMapping("user/sendMessage")
     @ResponseBody
     public String sendMessage(@ModelAttribute("user") UserVO user) {
-
-        if(!user.getUser_id().isEmpty()){
+        if (!user.getUser_id().isEmpty()) {
             user = userService.findUser(user.getUser_id());
-            if(user==null){
+            if (user == null) {
                 return "x";
             }
         }
@@ -127,7 +130,6 @@ public class UserController {
 
 
 
-
     }
 
     @GetMapping("user/login")
@@ -136,22 +138,22 @@ public class UserController {
     }
 
     @GetMapping("user/find")
-    public String findForm(){
+    public String findForm() {
         return "user/findForm";
     }
 
     @PostMapping("user/passwordForm")
-    public String passwordForm(String user_id, Model model){
-        log.info("user_id={}",user_id);
-        model.addAttribute("user_id",user_id);
+    public String passwordForm(String user_id, Model model) {
+        log.info("user_id={}", user_id);
+        model.addAttribute("user_id", user_id);
         return "user/passwordForm";
 
     }
 
     @PostMapping("user/password")
-    public String password(@ModelAttribute UserVO user){
+    public String password(@ModelAttribute UserVO user) {
         userService.updatePw(user);
-        return "user/login";
+            return "user/login";
     }
 
 

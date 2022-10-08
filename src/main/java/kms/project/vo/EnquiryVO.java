@@ -4,8 +4,8 @@ public class EnquiryVO {
     private int enquiry_code; // 문의사항 인덱스
     private int user_code ; // 회원 인덱스
     private int enquiry_status; // 질문 상태
-    private String enquiry_qdate,enquiry_adate,enquriy_question,enquiry_answer;
-        //          질문날짜        답변날짜        질문              답변
+    private String enquiry_qdate,enquiry_adate,enquiry_question,enquiry_answer,enquiry_title;
+        //          질문날짜        답변날짜        질문              답변          질문 제목
 
     public int getEnquiry_code() {
         return enquiry_code;
@@ -47,12 +47,12 @@ public class EnquiryVO {
         this.enquiry_adate = enquiry_adate;
     }
 
-    public String getEnquriy_question() {
-        return enquriy_question;
+    public String getEnquiry_question() {
+        return enquiry_question;
     }
 
-    public void setEnquriy_question(String enquriy_question) {
-        this.enquriy_question = enquriy_question;
+    public void setEnquiry_question(String enquiry_question) {
+        this.enquiry_question = enquiry_question;
     }
 
     public String getEnquiry_answer() {
@@ -61,5 +61,13 @@ public class EnquiryVO {
 
     public void setEnquiry_answer(String enquiry_answer) {
         this.enquiry_answer = enquiry_answer;
+    }
+
+    public String getEnquiry_title() {
+        return enquiry_title;
+    }
+
+    public void setEnquiry_title(String enquiry_title) {
+        this.enquiry_title = enquiry_title;
     }
 }

@@ -1,5 +1,6 @@
 package kms.project.repository;
 
+import kms.project.dto.UserUpdateDto;
 import kms.project.repository.mapper.UserMapper;
 import kms.project.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
@@ -31,5 +32,9 @@ public class UserRepository {
 
     public void updatePw(UserVO user){
          userMapper.updatePw(user);
+    }
+
+    public void updateUser(UserUpdateDto user){
+        userMapper.updateUser(user);
     }
 }

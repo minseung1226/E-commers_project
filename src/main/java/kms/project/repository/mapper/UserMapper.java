@@ -1,11 +1,9 @@
 package kms.project.repository.mapper;
 
-import kms.project.dto.UserDto;
+import kms.project.dto.UserUpdateDto;
 import kms.project.vo.UserVO;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface UserMapper {
@@ -15,4 +13,5 @@ public interface UserMapper {
 
     void updatePw(@Param("user") UserVO user);
 
+    void updateUser(@Param("user")UserUpdateDto user);
 }

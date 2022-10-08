@@ -4,9 +4,19 @@ package kms.project.vo;
 public class UserVO {
     private int user_code; // 유저 인덱스
     private int user_status; // 회원 상태
+
+    private int user_payment; // 총 결제 금액
     private String user_id, user_pw,user_pw2,user_name,user_phone,user_email,user_addr1,user_addr2,user_regdate,user_con_date , user_birth,user_sex;
     //              아이디   비밀번호  비번체크       회원명     전화번호    이메일      주소      주소      가입날짜        최근 접속날짜    생년월일     성별
 
+
+    public int getUser_payment() {
+        return user_payment;
+    }
+
+    public void setUser_payment(int user_payment) {
+        this.user_payment = user_payment;
+    }
 
     public int getUser_code() {
         return user_code;
