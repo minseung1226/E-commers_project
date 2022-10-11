@@ -4,7 +4,6 @@ public class DivisionVO {
     private int division_code ; // 분류 인덱스
     private String division_lType ;
     private String division_mType;
-    private String division_sType;
 
     public int getDivision_code() {
         return division_code;
@@ -30,11 +29,4 @@ public class DivisionVO {
         this.division_mType = division_mType;
     }
 
-    public String getDivision_sType() {
-        return division_sType;
-    }
-
-    public void setDivision_sType(String division_sType) {
-        this.division_sType = division_sType;
-    }
 }

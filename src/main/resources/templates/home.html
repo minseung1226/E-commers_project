@@ -38,25 +38,12 @@
                 font-size: 3.5rem;
             }
         }
-        /*header {
-            position: fixed;
-            top: 0;
-             width: 100% ;
-            left: 0;
-            right: 0;
 
-            !* 생략 *!
-        }*/
         main {
             padding-top: 90px;
-            /* 생략 */
+
         }
-        /*.modal fade{
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }*/
+
     </style>
 
 
@@ -64,8 +51,11 @@
 
 </head>
 <body>
+<th:block th:unless="${session.isEmpty()}">
+    <header th:if="${session.admin==null}" th:insert="~{template/header :: user_mainbar}"></header>
+    <header th:if="${session.user==null}" th:insert="~{template/header :: admin_mainbar}"></header>
+</th:block>
 <header th:if="${session.isEmpty()}" th:insert="~{template/header :: no_user_mainbar}"></header>
-<header th:unless="${session.isEmpty()}" th:insert="~{template/header :: user_mainbar}"></header>
 
 <main>
 

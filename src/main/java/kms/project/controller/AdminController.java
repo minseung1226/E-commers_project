@@ -1,0 +1,154 @@
+package kms.project.controller;
+
+import kms.project.controller.validation.AdminValidator;
+import kms.project.controller.validation.ProductValidator;
+import kms.project.repository.ProductRepository;
+import kms.project.service.AdminService;
+import kms.project.service.DetailService;
+import kms.project.service.EnquiryService;
+import kms.project.service.ProductService;
+import kms.project.vo.AdminVO;
+import kms.project.vo.DivisionVO;
+import kms.project.vo.EnquiryVO;
+import kms.project.vo.ProductVO;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.List;
+
+@Controller
+@Slf4j
+public class AdminController {
+    private final AdminService adminService;
+    private final EnquiryService enquiryService;
+    private final ProductService productService;
+    private final DetailService detailService;
+    private final AdminValidator adminValidator;
+    private final ProductValidator productValidator;
+
+    public AdminController(AdminService adminService, EnquiryService enquiryService,
+                           ProductService productService, DetailService detailService,
+                           AdminValidator adminValidator, ProductValidator productValidator) {
+        this.adminService = adminService;
+        this.enquiryService = enquiryService;
+        this.productService = productService;
+        this.detailService = detailService;
+        this.adminValidator = adminValidator;
+        this.productValidator = productValidator;
+    }
+
+    @GetMapping("/admin")
+    public String adminForm(Model model,HttpServletRequest request) {
+        request.getSession().invalidate();
+        model.addAttribute("admin", new AdminVO());
+        return "/admin/loginForm";
+    }
+
+    @PostMapping("/admin/Login")
+    public String adminLogin(@ModelAttribute("admin") AdminVO admin, BindingResult result, HttpServletRequest request) {
+        adminValidator.validate(admin, result);
+        if (result.hasErrors()) {
+            return "/admin/loginForm";
+        }
+        AdminVO findAdmin = adminService.adminLogin(admin.getAdmin_id());
+        if (findAdmin == null || !findAdmin.getAdmin_pw().equals(admin.getAdmin_pw())) {
+            result.rejectValue("admin_id", "idPwMismatch");
+            return "/admin/loginForm";
+        }
+
+        HttpSession session = request.getSession();
+        session.setAttribute("admin", findAdmin);
+        return "home";
+    }
+
+    @GetMapping("admin/enquiryList")
+    public String enquiryList(Model model) {
+        List<EnquiryVO> list = enquiryService.selectAll();
+        model.addAttribute("list", list);
+
+        return "admin/enquiryList";
+    }
+
+    @GetMapping("admin/answer")
+    public String enquiryAnswer(int enquiry_code, Model model) {
+        EnquiryVO enquiry = enquiryService.enquiryselectOne(enquiry_code);
+        model.addAttribute("enquiry", enquiry);
+
+        return "admin/answer";
+    }
+
+    @PostMapping("admin/answer")
+    public String enquiryUpdate(@ModelAttribute("enquiry") EnquiryVO enquiry) {
+        enquiryService.enquiryAnswer(enquiry);
+
+        return "redirect:/admin/enquiryList";
+    }
+
+    @GetMapping("admin/product/add")
+    public String productForm(Model model) {
+        List<DivisionVO> list = productService.divisionList();
+        model.addAttribute("list",list);
+        model.addAttribute("product", new ProductVO());
+        return "admin/productForm";
+    }
+
+    @PostMapping("admin/product/add")
+    @Transactional
+    public String productAdd(@Validated @ModelAttribute("product") ProductVO product,BindingResult result,String size,String color,Model model){
+        productValidator.validate(product,result);
+        if (result.hasErrors()){
+            List<DivisionVO> list = productService.divisionList();
+            model.addAttribute("list",list);
+            return "admin/productForm";
+        }
+
+        productService.productInsert(product);
+        detailService.detailInsert(size,color,product.getProduct_code());
+        log.info("product_code={}",product.getProduct_code());
+
+        return "redirect:/admin/recent_register";
+    }
+
+
+    @GetMapping("/admin/recent_register")
+    public String recent_register(Model model){
+        List<ProductVO> product = productService.recent_register();
+        model.addAttribute("list",product);
+
+        return "admin/recent_register";
+
+    }
+
+    // 리턴을 상품 검색칸으로 옮기기
+    @PostMapping("admin/delete_product")
+    public String delete(int product_code){
+        productService.delete_productAndDetail(product_code);
+
+        return "redirect:/admin/recent_register";
+    }
+
+    @PostMapping("admin/product/modify")
+    public String product_modify(int product_code,Model model){
+        model.addAttribute("product_code",product_code);
+        return "/admin/product_infoAndDetail";
+    }
+
+
+    @GetMapping("admin/product/info_modify")
+    public String info_modifyForm(int product_code,Model model){
+        ProductVO productVO = productService.select_product(product_code);
+        model.addAttribute("product",productVO);
+
+        return "admin/info_modifyForm";
+    }
+
+}

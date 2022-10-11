@@ -2,7 +2,7 @@ package kms.project.vo;
 
 public class EnquiryVO {
     private int enquiry_code; // 문의사항 인덱스
-    private int user_code ; // 회원 인덱스
+    private String user_id ; // 회원 id
     private int enquiry_status; // 질문 상태
     private String enquiry_qdate,enquiry_adate,enquiry_question,enquiry_answer,enquiry_title;
         //          질문날짜        답변날짜        질문              답변          질문 제목
@@ -15,12 +15,12 @@ public class EnquiryVO {
         this.enquiry_code = enquiry_code;
     }
 
-    public int getUser_code() {
-        return user_code;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public void setUser_code(int user_code) {
-        this.user_code = user_code;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     public int getEnquiry_status() {

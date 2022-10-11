@@ -2,16 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kms.project.repository.mapper.EnquiryMapper">
-    <select id="selectAll" parameterType="Integer" resultType="EnquiryVO">
-        select * from project.enquiry where user_code=#{user_code} order by enquiry_code
+    <select id="selectUser" parameterType="String" resultType="EnquiryVO">
+        select * from project.enquiry where user_id=#{user_id} order by enquiry_code
     </select>
 
     <insert id="enquiryInsert" parameterType="EnquiryVO">
-        insert into project.enquiry(user_code,enquiry_title,enquiry_qdate,enquiry_question,status)
-        values(#{enquiry.user_code},#{enquiry.enquiry_title},current_date,#{enquiry.enquiry_question},0)
+        insert into project.enquiry(user_id,enquiry_title,enquiry_qdate,enquiry_question,status)
+        values(#{enquiry.user_id},#{enquiry.enquiry_title},current_date,#{enquiry.enquiry_question},0)
     </insert>
 
     <select id="enquirySelectOne" parameterType="Integer" resultType="EnquiryVO">
         select * from project.enquiry where enquiry_code=#{enquiry_code}
     </select>
+
+    <select id="selectAll" resultType="EnquiryVO">
+        select * from project.enquiry
+    </select>
+
+    <update id="enquiryAnswer" parameterType="EnquiryVO">
+        UPDATE project.enquiry set status=1,enquiry_answer=#{enquiry.enquiry_answer},enquiry_adate=current_date where enquiry_code=#{enquiry.enquiry_code}
+    </update>
 </mapper>

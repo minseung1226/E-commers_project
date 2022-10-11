@@ -2,11 +2,12 @@ package kms.project.vo;
 
 public class ProductVO {
     private int product_code ;// 상품 인덱스
-    private int division_code ; //분류 인덱스
+    private String division_mType ; // 소분류
     private int product_price ; // 상품 가격
     private int product_count ; //판매량
     private String product_name,product_img1,product_img2,product_img3,product_detail,product_date;
     //              상품이름        상품이미지                               상세설명        상품 등록 날짜
+
 
     public int getProduct_code() {
         return product_code;
@@ -16,12 +17,12 @@ public class ProductVO {
         this.product_code = product_code;
     }
 
-    public int getDivision_code() {
-        return division_code;
+    public String getDivision_mType() {
+        return division_mType;
     }
 
-    public void setDivision_code(int division_code) {
-        this.division_code = division_code;
+    public void setDivision_mType(String division_mType) {
+        this.division_mType = division_mType;
     }
 
     public int getProduct_price() {

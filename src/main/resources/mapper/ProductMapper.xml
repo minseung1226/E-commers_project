@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kms.project.repository.mapper.ProductMapper">
+    <insert id="productInsert" parameterType="ProductVO"  useGeneratedKeys="true" keyColumn="product_code" keyProperty="product_code" >
+        insert into project.product(division_mType,product_name,product_price,product_img1,product_img2,product_img3,product_detail,product_date,product_count)
+        values(#{product.division_mType},#{product.product_name},#{product.product_price},#{product.product_img1},#{product.product_img2},
+                                           #{product.product_img3},#{product.product_detail},current_date,0)
+    </insert>
+
+    <select id="recent_register" resultType="ProductVO">
+        select * from project.product order by product_code desc limit 10;
+    </select>
+</mapper>

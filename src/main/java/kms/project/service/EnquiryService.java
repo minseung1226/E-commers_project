@@ -15,8 +15,8 @@ public class EnquiryService {
         this.enquiryRepository = enquiryRepository;
     }
 
-    public List<EnquiryVO> selectAll(int user_code){
-        return enquiryRepository.selectAll(user_code);
+    public List<EnquiryVO> selectUser(String user_id){
+        return enquiryRepository.selectUser(user_id);
     }
 
     public void enquiryInsert(EnquiryVO enquiry){
@@ -25,5 +25,13 @@ public class EnquiryService {
 
     public EnquiryVO enquiryselectOne(int enquiry_code){
         return enquiryRepository.enquirySelectOne(enquiry_code);
+    }
+
+    public List<EnquiryVO> selectAll(){
+        return enquiryRepository.selectAll();
+    }
+
+    public void enquiryAnswer(EnquiryVO enquiry){
+        enquiryRepository.enquiryAnswer(enquiry);
     }
 }

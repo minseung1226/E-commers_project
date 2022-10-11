@@ -22,9 +22,7 @@
   </style>
 </head>
 <body>
-<header th:if="${session.isEmpty()}" th:insert="~{template/header :: no_user_mainbar}"></header>
-<header th:unless="${session.isEmpty()}" th:insert="~{template/header :: user_mainbar}"></header>
-
+<header th:insert="~{template/header :: user_mainbar}"></header>
 <main>
   <div class="row">
     <!--사이드 바-->

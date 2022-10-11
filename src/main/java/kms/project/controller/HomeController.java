@@ -16,9 +16,7 @@ public class HomeController {
     @GetMapping(value = {"/","user/home"})
     public String home(Model model){
         log.info("HomeController 시작");
-/*
-        model.addAttribute("user",new UserVO());
-*/
+
 
         return "home";
     }

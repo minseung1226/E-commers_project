@@ -66,7 +66,7 @@ public class MypageController {
     @GetMapping("/mypage/enquiryList")
     public String enquiryList(Model model,HttpSession session){
         UserVO user =(UserVO) session.getAttribute("user");
-        List<EnquiryVO> list = enquiryService.selectAll(user.getUser_code());
+        List<EnquiryVO> list = enquiryService.selectUser(user.getUser_id());
 
         model.addAttribute("list",list);
 
@@ -80,7 +80,7 @@ public class MypageController {
     @PostMapping("mypage/enquiryForm")
     public String enquiry(EnquiryVO enquiry,HttpSession session){
         UserVO user =(UserVO) session.getAttribute("user");
-        enquiry.setUser_code(user.getUser_code());
+        enquiry.setUser_id(user.getUser_id());
         enquiryService.enquiryInsert(enquiry);
         return "redirect:/mypage/enquiryList";
     }

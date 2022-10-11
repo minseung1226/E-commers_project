@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kms.project.repository.mapper.DetailMapper">
+    <insert id="detailInsert" parameterType="java.util.List">
+        insert into project.detail(product_code,size,color) values
+                                          <foreach collection="list" item="detail" separator=",">
+                                              (#{detail.product_code},#{detail.size},#{detail.color})
+                                          </foreach>
+    </insert>
+</mapper>

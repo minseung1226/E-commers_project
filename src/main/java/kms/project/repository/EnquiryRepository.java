@@ -14,8 +14,8 @@ public class EnquiryRepository {
         this.mapper = mapper;
     }
 
-    public List<EnquiryVO> selectAll(int user_code){
-        return mapper.selectAll(user_code);
+    public List<EnquiryVO> selectUser(String user_id){
+        return mapper.selectUser(user_id);
     }
 
     public void enquiryInsert(EnquiryVO enquiry){
@@ -24,5 +24,13 @@ public class EnquiryRepository {
 
     public EnquiryVO enquirySelectOne(int enquiry_code){
         return mapper.enquirySelectOne(enquiry_code);
+    }
+
+    public List<EnquiryVO> selectAll(){
+        return mapper.selectAll();
+    }
+
+    public void enquiryAnswer(EnquiryVO enquiry){
+        mapper.enquiryAnswer(enquiry);
     }
 }

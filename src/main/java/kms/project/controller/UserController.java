@@ -97,7 +97,7 @@ public class UserController {
         }
 
         int seq = userService.userInsert(user);
-
+        user.setUser_code(seq);
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
 
