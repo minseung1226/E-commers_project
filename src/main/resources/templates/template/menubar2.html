@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+div.container {
+	width: 900px;
+	margin: 0 auto;
+}
+
+ul.menubar {
+	border: 1px solid #ddd;
+	border-radius: 0.4em;
+	background: linear-gradient(#fff, #eee);
+	padding: 0.3em 5em;
+	font-size: 11pt;
+}
+
+ul.menubar>li { /* ul의 class menubar 아래의 li에만 서식 적용 */
+	display: inline-block;
+	text-align: center;
+	list-style-type: none;
+	min-width: 6em;
+	padding: 0.2em;
+}
+
+ul.menubar li.right { float: right; } /* 오른쪽으로 보내기 */
+
+ul.menubar li {
+	display: inline-block; /* 내용에 딱 맞는 크기로 지정, 서식 적용 잘 됨 -> 이 태그로 세로에서 가로로 됨*/
+	list-style-type: none; /* li 앞에 점 없애기 */
+	min-width: 6em; /* 가로 방향 폭의 최소 크기를 현재 폰트 크기 6배로 지정 */
+	text-align: center;
+	padding: 0.2em;
+}
+
+ul.menubar li:hover { /* ul의 class menubar 아래 li에 포인터가 올라갔을 때 서식 지정 */
+	background-color: #ddd;
+	cursor: pointer;
+}
+
+ul.menubar ul {
+	position: absolute;
+	visibility: hidden; /* 해당 태그 보이지 않음. -> 존재는 함 */
+	margin-top: 2px;
+	margin-left: 30px;
+	background-color: white;
+	border: 1px solid #ddd;
+	padding: 0;
+	box-shadow: 4px 4px 4px #eee;
+	min-width: 120px;
+}
+
+ul.menubar li:hover ul { /* ul의 class menubar 안의 li 위에 마우스를 올리면 ul 태그의 서식 지정 */
+	visibility: visible; /* ul 태그가 보이게 함 */
+}
+
+ul.menubar ul:hover { /* ul의 class menubar 안의 ul에 마우스를 올리면 */
+	visibility: visible; /* 태그가 보이게 함 */
+}
+
+ul.menubar ul li { /* 풀다운 메뉴의 li 태그에 서식 지정 */
+	display: block;
+	text-align: left;
+	list-style-type: none;
+	min-width: 8em;
+	padding: 0.4em;
+}
+
+ul.menubar li.seperator { /* 풀다운 메뉴에 선 긋기 */
+	height: 1px;
+	padding: 0;
+	margin: 4px 0;
+	border-top: 1px solid #ccc;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<ul class="menubar">
+			<li>메뉴1</li>
+			<li>메뉴2</li>
+			<li>메뉴3
+				<ul>
+					<li>메뉴3-1</li>
+					<li>메뉴3-2</li>
+					<li class="seperator"></li>
+					<li>메뉴3-3</li>
+				</ul>
+			</li>
+			<li class="right">로그아웃</li>
+		</ul>
+	</div>
+
+</body>
+</html>

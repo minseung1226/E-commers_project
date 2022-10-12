@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -67,7 +68,7 @@ public class AdminController {
 
         HttpSession session = request.getSession();
         session.setAttribute("admin", findAdmin);
-        return "home";
+        return "redirect:/";
     }
 
     @GetMapping("admin/enquiryList")
@@ -138,6 +139,7 @@ public class AdminController {
 
     @PostMapping("admin/product/modify")
     public String product_modify(int product_code,Model model){
+        log.info("product_modify.product_code={}",product_code);
         model.addAttribute("product_code",product_code);
         return "/admin/product_infoAndDetail";
     }
@@ -145,10 +147,41 @@ public class AdminController {
 
     @GetMapping("admin/product/info_modify")
     public String info_modifyForm(int product_code,Model model){
+        log.info("form.product_code={}",product_code);
         ProductVO productVO = productService.select_product(product_code);
+        List<DivisionVO> list = productService.divisionList();
         model.addAttribute("product",productVO);
+        model.addAttribute("list",list);
 
         return "admin/info_modifyForm";
+    }
+
+    @PostMapping("admin/product/info_modify")
+    public String info_modify(@ModelAttribute("product") ProductVO product,BindingResult result,Model model){
+        productValidator.validate(product,result);
+        if (result.hasErrors()){
+            List<DivisionVO> list = productService.divisionList();
+            model.addAttribute("list",list);
+            return "admin/info_modifyForm";
+        }
+        productService.update_product(product);
+        return "redirect:/admin/recent_register";
+    }
+
+    @GetMapping("admin/product/detail_modify")
+    public String detail_modifyForm(int product_code,Model model){
+        Map<String, String> detail = detailService.select_detail(product_code);
+        model.addAttribute("detail",detail);
+
+        return "admin/detail_modifyForm";
+
+    }
+
+    @PostMapping("admin/product/detail_modify")
+    public String detail_modify(int product_code,String size,String color,Model model){
+        detailService.updateDetail(product_code,size,color);
+
+        return "redirect:/admin/recent_register";
     }
 
 }

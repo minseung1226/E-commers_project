@@ -40,4 +40,12 @@ public class ProductRepository {
         return mapper.select_product(product_code);
     }
 
+    public void update_product(ProductVO product){
+        mapper.update_product(product);
+    }
+
+    public List<ProductVO> homeSelect(){
+        return mapper.home_select();
+    }
+
 }

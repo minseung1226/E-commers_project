@@ -38,4 +38,12 @@ public class ProductService {
     public ProductVO select_product(int product_code){
         return productRepository.select_product(product_code);
     }
+
+    public void update_product(ProductVO product){
+        productRepository.update_product(product);
+    }
+
+    public List<ProductVO> home_select(){
+        return productRepository.homeSelect();
+    }
 }

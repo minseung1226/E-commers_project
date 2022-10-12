@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.context.annotation.Profile;
 import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.List;
@@ -30,4 +31,8 @@ public interface ProductMapper {
     @Select("select * from project.product where product_code=#{product_code}")
     ProductVO select_product(int product_code);
 
+    void update_product(@Param("product") ProductVO product);
+
+    @Select("select * from project.product order by product_count desc limit 12")
+    List<ProductVO> home_select();
 }

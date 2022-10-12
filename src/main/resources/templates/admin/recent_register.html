@@ -38,9 +38,7 @@
             margin-left: 3px;
         }
 
-        img {
-            hight: 60%;
-        }
+
 
         form {
             margin: 0;
@@ -66,13 +64,13 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
                 <div class="card" style="width: 18rem;" th:each="product:${list}">
-
-                        <img th:src="${product.product_img1}" class="card-img-top" alt="..." style="height: 70%">
-
-                        <div class="card-body">
+                    <a th:href="@{/shopping/product_info(product_code=${product.product_code})}" style="height: 60%">
+                        <img th:src="${product.product_img1}" class="card-img-top" alt="..." style="height: 100%">
+                    </a>
+                    <div class="card-body">
                             <p class="card-text">
                             <p th:text="${product.product_name}"></p>
-                            <p th:text="${#numbers.formatInteger(product.product_price,3,'COMMA')}"></p>
+                            <b th:text="|${#numbers.formatInteger(product.product_price,3,'COMMA')} 원|"></b>
                             </p>
                             <div class="btn-group">
                                 <form method="post">

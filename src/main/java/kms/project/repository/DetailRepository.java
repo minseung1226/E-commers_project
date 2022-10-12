@@ -22,4 +22,8 @@ public class DetailRepository {
     public List<DetailVO> selectDetail(int product_code){
         return detailMapper.select_detail(product_code);
     }
+
+    public void delete_detail(int product_code){
+        detailMapper.delete_detail(product_code);
+    }
 }

@@ -11,4 +11,11 @@
     <select id="recent_register" resultType="ProductVO">
         select * from project.product order by product_code desc limit 10;
     </select>
+
+    <update id="update_product" parameterType="ProductVO">
+        UPDATE project.product set division_mType=#{product.division_mType},product_name=#{product.product_name},
+                                   product_price=#{product.product_price},product_img1=#{product.product_img1},product_img2=#{product.product_img2},
+                                   product_img3=#{product.product_img3},product_detail=#{product.product_detail},product_date=current_date where product_code=#{product.product_code}
+
+    </update>
 </mapper>
