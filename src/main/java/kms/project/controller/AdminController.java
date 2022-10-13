@@ -130,7 +130,7 @@ public class AdminController {
     }
 
     // 리턴을 상품 검색칸으로 옮기기
-    @PostMapping("admin/delete_product")
+    @GetMapping("admin/delete_product")
     public String delete(int product_code){
         productService.delete_productAndDetail(product_code);
 

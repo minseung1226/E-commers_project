@@ -27,7 +27,7 @@ public class HomeController {
         HttpSession session = request.getSession();
         if(session.getAttribute("divisionList")==null){
             List<DivisionVO> divisionList = productService.divisionList();
-            model.addAttribute("divisionList",divisionList);
+            session.setAttribute("divisionList",divisionList);
         }
 
         List<ProductVO> list = productService.home_select();

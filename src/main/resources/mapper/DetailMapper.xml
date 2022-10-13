@@ -8,4 +8,5 @@
                                               (#{detail.product_code},#{detail.size},#{detail.color})
                                           </foreach>
     </insert>
+
 </mapper>

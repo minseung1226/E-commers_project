@@ -2,7 +2,10 @@ package kms.project.controller;
 
 import kms.project.controller.validation.UserValidator;
 import kms.project.dto.UserUpdateDto;
+import kms.project.service.BasketService;
 import kms.project.service.UserService;
+import kms.project.vo.BasketVO;
+import kms.project.vo.DetailVO;
 import kms.project.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -25,9 +28,12 @@ public class UserController {
     private final UserService userService;
     private final Validator userValidator;
 
-    public UserController(UserService userService, Validator userValidator) {
+    private final BasketService basketService;
+
+    public UserController(UserService userService, Validator userValidator, BasketService basketService) {
         this.userService = userService;
         this.userValidator = userValidator;
+        this.basketService = basketService;
     }
 
     @InitBinder
@@ -154,6 +160,16 @@ public class UserController {
     public String password(@ModelAttribute UserVO user) {
         userService.updatePw(user);
             return "user/login";
+    }
+
+    @PostMapping("user/basket_insert")
+    public String basket_insert(BasketVO basket, DetailVO detail,HttpServletRequest request){
+        HttpSession session = request.getSession();
+        UserVO user =(UserVO) session.getAttribute("user");
+        basket.setUser_code(user.getUser_code());
+
+        basketService.add_basket(basket,detail);
+        return "redirect:/shopping/product_info?product_code="+detail.getProduct_code();
     }
 
 

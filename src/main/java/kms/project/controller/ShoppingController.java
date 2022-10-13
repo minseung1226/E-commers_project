@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
@@ -30,13 +31,15 @@ public class ShoppingController {
         model.addAttribute("product",product);
         model.addAttribute("size",sizeColor.get("size"));
         model.addAttribute("color",sizeColor.get("color"));
-        log.info("size ={}",sizeColor.get("size"));
-        log.info("color={}",sizeColor.get("color"));
         return "shopping/product_info";
     }
 
     @GetMapping("shopping/product_search")
-    public String product_search(String division_lType,String division_mType,String search){
-        return "asd";
+    public String product_search(String division_lType,String division_mType,String search,Model model){
+        List<ProductVO> productList = productService.select_search(division_mType, division_lType, search);
+        model.addAttribute("list",productList);
+
+        return "shopping/product_search";
+
     }
 }

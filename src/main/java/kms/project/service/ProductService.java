@@ -4,12 +4,16 @@ import kms.project.repository.DetailRepository;
 import kms.project.repository.ProductRepository;
 import kms.project.vo.DivisionVO;
 import kms.project.vo.ProductVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
+@Slf4j
 public class ProductService {
     private final ProductRepository productRepository;
 
@@ -45,5 +49,13 @@ public class ProductService {
 
     public List<ProductVO> home_select(){
         return productRepository.homeSelect();
+    }
+
+    public List<ProductVO> select_search(String division_mType,String division_lType,String search){
+        Map<String,String> map = new HashMap<>();
+        map.put("division_mType",division_mType);
+        map.put("division_lType",division_lType);
+        map.put("search",search);
+        return productRepository.select_search(map);
     }
 }

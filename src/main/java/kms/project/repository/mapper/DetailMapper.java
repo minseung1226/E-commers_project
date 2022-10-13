@@ -17,4 +17,7 @@ public interface DetailMapper {
 
     @Delete("delete from project.detail where product_code=#{product_code}")
     void delete_detail(int product_code);
+
+    @Select("select detail_code from project.detail where product_code=#{detail.product_code} and size=#{detail.size} and color=#{detail.color}")
+    Integer select_code(@Param("detail")DetailVO detail);
 }

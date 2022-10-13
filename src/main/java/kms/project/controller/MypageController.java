@@ -59,7 +59,11 @@ public class MypageController {
     }
 
     @GetMapping("mypage/basket")
-    public String basket(){
+    public String basket(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        UserVO user =(UserVO) session.getAttribute("user");
+
+
         return "mypage/basket";
     }
 

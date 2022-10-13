@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Profile;
 import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ProductMapper {
@@ -35,4 +36,8 @@ public interface ProductMapper {
 
     @Select("select * from project.product order by product_count desc limit 12")
     List<ProductVO> home_select();
+
+
+    List<ProductVO> select_search(Map<String,String> map);
+
 }

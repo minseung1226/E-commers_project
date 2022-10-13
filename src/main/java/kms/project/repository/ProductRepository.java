@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class ProductRepository {
@@ -46,6 +47,10 @@ public class ProductRepository {
 
     public List<ProductVO> homeSelect(){
         return mapper.home_select();
+    }
+
+    public List<ProductVO> select_search(Map<String,String> map){
+        return mapper.select_search(map);
     }
 
 }

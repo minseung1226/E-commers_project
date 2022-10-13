@@ -56,6 +56,7 @@
                         <input type="hidden" name="product_code" th:value="${product_code}">
                         <button class="btn btn-primary btn-lg" id="info_btn">상품 정보 수정</button>
                         <button class="btn btn-primary btn-lg" id="detail_btn">사이즈 컬러 수정</button>
+                        <button class="btn btn-primary btn-lg" id="del_btn">상품 삭제</button>
                     </div>
                 </form>
             </div>
@@ -74,6 +75,15 @@
         $(function (){
             $('#detail_btn').click(function (){
                 $('form').attr('action','/admin/product/detail_modify');
+            })
+        })
+
+        $(function (){
+            $('#del_btn').click(function (){
+                if(!confirm("해당 상품을 삭제 하시겠습니까?")){
+                  return false;
+                }
+                $('form').attr('action','/admin/delete_product');
             })
         })
     </script>
