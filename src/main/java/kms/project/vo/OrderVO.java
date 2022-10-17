@@ -2,11 +2,13 @@ package kms.project.vo;
 
 public class OrderVO { //구매정보
     private int order_code ;
-    private int detail_code ; //상품상세 인덱스
     private int user_code; //회원 인덱스
     private int order_payment; // 가격
+
     private String order_date , order_name,order_phone,order_addr1,order_addr2,order_request;
     //              구매날짜      구매자      구매자 번호     주소        주소          요청사항
+
+
 
 
     public int getOrder_code() {
@@ -17,13 +19,6 @@ public class OrderVO { //구매정보
         this.order_code = order_code;
     }
 
-    public int getDetail_code() {
-        return detail_code;
-    }
-
-    public void setDetail_code(int detail_code) {
-        this.detail_code = detail_code;
-    }
 
     public int getUser_code() {
         return user_code;

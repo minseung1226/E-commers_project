@@ -3,10 +3,15 @@ package kms.project.service;
 import kms.project.repository.BasketRepository;
 import kms.project.repository.DetailRepository;
 import kms.project.vo.BasketVO;
+import kms.project.vo.BasketViewVO;
 import kms.project.vo.DetailVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class BasketService {
@@ -31,6 +36,26 @@ public class BasketService {
         else{
             basketRepository.update_basket(basket);
         }
+    }
+
+    public List<BasketViewVO> select_basketView(int user_code){
+        return basketRepository.select_basketView(user_code);
+    }
+
+
+    public void delete_basket(String basket_check){
+        String[] basket_code = basket_check.split(",");
+
+        basketRepository.delete_basket(basket_code);
+    }
+
+    public List<BasketViewVO> select_choiceBasket_view(int user_code,String basket_check){
+        String[] codeArray = basket_check.split(",");
+        Map<String,Object> map = new HashMap<>();
+        map.put("user_code",user_code);
+        map.put("codeArray",codeArray);
+
+        return basketRepository.select_choiceBasket_view(map);
     }
 
 }

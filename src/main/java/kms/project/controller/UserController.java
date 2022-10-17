@@ -5,6 +5,7 @@ import kms.project.dto.UserUpdateDto;
 import kms.project.service.BasketService;
 import kms.project.service.UserService;
 import kms.project.vo.BasketVO;
+import kms.project.vo.BasketViewVO;
 import kms.project.vo.DetailVO;
 import kms.project.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Random;
 
 @Controller
@@ -48,9 +50,7 @@ public class UserController {
     public String userCheck(String user_id, String user_pw, HttpServletRequest request) {
         log.info("UserController.idcheck() user_id={} , user_pw={}", user_id, user_pw);
         UserVO findUserVO = userService.findUser(user_id);
-/*
-        log.info("findUserVO.user_id={} , findUserVO.user_pw={}",findUserVO.getUser_id(),findUserVO.getUser_pw());
-*/
+
         String result = "";
         if (findUserVO == null) {
             result = "잘못된 아이디 입니다";
@@ -118,7 +118,7 @@ public class UserController {
     @GetMapping("user/sendMessage")
     @ResponseBody
     public String sendMessage(@ModelAttribute("user") UserVO user) {
-        if (!user.getUser_id().isEmpty()) {
+        if (user.getUser_id()!=null) {
             user = userService.findUser(user.getUser_id());
             if (user == null) {
                 return "x";
@@ -171,6 +171,22 @@ public class UserController {
         basketService.add_basket(basket,detail);
         return "redirect:/shopping/product_info?product_code="+detail.getProduct_code();
     }
+
+    @PostMapping("user/orderForm")
+    public String orderForm(String basket_check,int order_payment,HttpServletRequest request,Model model){
+        HttpSession session = request.getSession();
+        UserVO user = (UserVO)session.getAttribute("user");
+
+        List<BasketViewVO> list = basketService.select_choiceBasket_view(user.getUser_code(), basket_check);
+
+        model.addAttribute("list",list);
+        model.addAttribute("order_payment",order_payment);
+
+
+        return "user/orderForm";
+    }
+
+
 
 
 }

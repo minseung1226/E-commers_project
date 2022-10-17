@@ -6,4 +6,20 @@
         insert into project.basket(user_code,detail_code,basket_quantity)
         values(#{basket.user_code},#{basket.detail_code},#{basket.basket_quantity})
     </insert>
+
+    <delete id="delete_basket">
+        delete from project.basket where basket_code in
+                                         <foreach collection="array" item="arr" open="(" close=")" separator=",">
+                                             #{arr}
+                                         </foreach>
+
+    </delete>
+    
+    <select id="select_choiceBasket_view" parameterType="map" resultType="BasketViewVO">
+        select * from project.basket_view where user_code=#{user_code} and
+                                                basket_code in
+                                                <foreach collection="codeArray" open="(" close=")" separator="," item="arr">
+                                                    #{arr}
+                                                </foreach>
+    </select>
 </mapper>

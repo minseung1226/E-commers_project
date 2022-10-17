@@ -1,9 +1,11 @@
 package kms.project.repository.mapper;
 
 import kms.project.vo.BasketVO;
+import kms.project.vo.BasketViewVO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface BasketMapper {
@@ -15,7 +17,11 @@ public interface BasketMapper {
 
     void insert_basket(@Param("basket") BasketVO basket);
 
-    @Select("select * from project.user ")
-    List<BasketVO> select_basketList(String user_code);
+    @Select("select * from project.basket_view where user_code=#{user_code}")
+    List<BasketViewVO> select_basketView(int user_code);
+
+    void delete_basket(String[] basket_code);
+
+    List<BasketViewVO> select_choiceBasket_view(Map<String,Object> map);
 
 }

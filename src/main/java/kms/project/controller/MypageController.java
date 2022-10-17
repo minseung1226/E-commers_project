@@ -4,6 +4,7 @@ import kms.project.dto.UserUpdateDto;
 import kms.project.service.BasketService;
 import kms.project.service.EnquiryService;
 import kms.project.service.UserService;
+import kms.project.vo.BasketViewVO;
 import kms.project.vo.EnquiryVO;
 import kms.project.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
@@ -59,10 +60,11 @@ public class MypageController {
     }
 
     @GetMapping("mypage/basket")
-    public String basket(HttpServletRequest request){
+    public String basket(HttpServletRequest request,Model model){
         HttpSession session = request.getSession();
         UserVO user =(UserVO) session.getAttribute("user");
-
+        List<BasketViewVO> viewList = basketService.select_basketView(user.getUser_code());
+        model.addAttribute("list",viewList);
 
         return "mypage/basket";
     }
@@ -94,5 +96,14 @@ public class MypageController {
         EnquiryVO enquiry = enquiryService.enquiryselectOne(enquiry_code);
         model.addAttribute("enquiry",enquiry);
         return "mypage/detailEnquiry";
+    }
+
+    @PostMapping("mypage/basket_delete")
+    public String basket_delete(String basket_check){
+        log.info("detail_code ={}",basket_check);
+
+        basketService.delete_basket(basket_check);
+
+        return "redirect:/mypage/basket";
     }
 }
