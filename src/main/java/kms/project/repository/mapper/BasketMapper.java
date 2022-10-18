@@ -22,6 +22,12 @@ public interface BasketMapper {
 
     void delete_basket(String[] basket_code);
 
-    List<BasketViewVO> select_choiceBasket_view(Map<String,Object> map);
+    void delete_basket2(Map<String,Object> map);
+
+    List<BasketViewVO> select_choiceBasket_view(String[] array);
+
+    List<BasketViewVO> select_choiceBasket_view2(Map<String,Object> map);
+
+
 
 }

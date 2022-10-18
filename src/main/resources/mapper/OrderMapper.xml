@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kms.project.repository.mapper.OrderMapper">
+
+    <insert id="insert_order" parameterType="java.util.List">
+        insert into project.order(user_code,detail_code,order_date,order_name,order_phone,order_addr1,order_addr2,
+                                  order_request,order_quantity,order_payment,order_number,review_status,order_delivery)
+        values
+            <foreach collection="list" item="o" separator=",">
+                (#{o.user_code},#{o.detail_code},current_date,#{o.order_name},#{o.order_phone},#{o.order_addr1},#{o.order_addr2},
+                #{o.order_request},#{o.order_quantity},#{o.order_payment},#{o.order_number},0,'배송중')
+            </foreach>
+    </insert>
+
+
+
+</mapper>

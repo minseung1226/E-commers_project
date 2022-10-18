@@ -40,4 +40,7 @@ public interface ProductMapper {
 
     List<ProductVO> select_search(Map<String,String> map);
 
+
+//    update project.product p,project.detail d set p.product_count=2 where p.product_code=d.product_code and d.detail_code=19;
+    void update_count(Map<String,Object> map);
 }

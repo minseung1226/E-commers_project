@@ -3,13 +3,51 @@ package kms.project.vo;
 public class OrderVO { //구매정보
     private int order_code ;
     private int user_code; //회원 인덱스
+
+    private int detail_code;
     private int order_payment; // 가격
+
+    private int review_status; //리뷰 상태
+
+    private String order_number;
+
+    private int order_quantity;
 
     private String order_date , order_name,order_phone,order_addr1,order_addr2,order_request;
     //              구매날짜      구매자      구매자 번호     주소        주소          요청사항
 
 
+    public int getOrder_quantity() {
+        return order_quantity;
+    }
 
+    public void setOrder_quantity(int order_quantity) {
+        this.order_quantity = order_quantity;
+    }
+
+    public String getOrder_number() {
+        return order_number;
+    }
+
+    public void setOrder_number(String order_number) {
+        this.order_number = order_number;
+    }
+
+    public int getDetail_code() {
+        return detail_code;
+    }
+
+    public void setDetail_code(int detail_code) {
+        this.detail_code = detail_code;
+    }
+
+    public int getReview_status() {
+        return review_status;
+    }
+
+    public void setReview_status(int review_status) {
+        this.review_status = review_status;
+    }
 
     public int getOrder_code() {
         return order_code;

@@ -14,12 +14,28 @@
                                          </foreach>
 
     </delete>
+
+    <delete id="delete_basket2" parameterType="map">
+        delete from project.basket where user_code=#{user_code} and detail_code in
+                                         <foreach collection="code_array" item="arr" open="(" close=")" separator=",">
+                                             #{arr}
+                                         </foreach>
+    </delete>
+
     
-    <select id="select_choiceBasket_view" parameterType="map" resultType="BasketViewVO">
-        select * from project.basket_view where user_code=#{user_code} and
+    <select id="select_choiceBasket_view" resultType="BasketViewVO">
+        select * from project.basket_view where
                                                 basket_code in
-                                                <foreach collection="codeArray" open="(" close=")" separator="," item="arr">
+                                                <foreach collection="array" open="(" close=")" separator="," item="arr">
                                                     #{arr}
                                                 </foreach>
+    </select>
+
+    <select id="select_choiceBasket_view2" parameterType="map" resultType="BasketViewVO">
+        select * from project.basket_view where user_code=#{user_code} and
+        detail_code in
+        <foreach collection="code_array" open="(" close=")" separator="," item="arr">
+            #{arr}
+        </foreach>
     </select>
 </mapper>

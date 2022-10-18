@@ -50,5 +50,16 @@
         </where>
     </select>
 
+    <update id="update_count" parameterType="map">
+        update project.product set product_count = product_count+#{product_count} where product_code=#{product_code}
+    </update>
+
+ <!--   <update id="update_count">
+        <foreach collection="list" item="map" separator=";">
+            update project.product set product_count=product_count+#{map.product_count} product_code=#{map.product_code}
+
+        </foreach>
+    </update>
+-->
 
 </mapper>

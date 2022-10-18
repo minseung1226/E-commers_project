@@ -37,8 +37,16 @@ public class BasketRepository {
         basketMapper.delete_basket(basket_code);
     }
 
+    public void delete_basket(Map<String,Object> map){
+        basketMapper.delete_basket2(map);
+    }
+
+    public List<BasketViewVO> select_choiceBasket_view(String[] array){
+        return basketMapper.select_choiceBasket_view(array);
+    }
+
     public List<BasketViewVO> select_choiceBasket_view(Map<String,Object> map){
-        return basketMapper.select_choiceBasket_view(map);
+        return basketMapper.select_choiceBasket_view2(map);
     }
 
 }

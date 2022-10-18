@@ -63,4 +63,8 @@ public class UserService {
     public void updateUser(UserUpdateDto user){
         userRepository.updateUser(user);
     }
+
+    public void updateCon_date(int user_code){
+        userRepository.updateCon_date(user_code);
+    }
 }

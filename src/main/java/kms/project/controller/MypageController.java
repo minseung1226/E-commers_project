@@ -1,13 +1,10 @@
 package kms.project.controller;
 
 import kms.project.dto.UserUpdateDto;
-import kms.project.service.BasketService;
-import kms.project.service.EnquiryService;
-import kms.project.service.UserService;
-import kms.project.vo.BasketViewVO;
-import kms.project.vo.EnquiryVO;
-import kms.project.vo.UserVO;
+import kms.project.service.*;
+import kms.project.vo.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,13 +22,18 @@ import java.util.List;
 public class MypageController {
     private final BasketService basketService;
     private final UserService userService;
-
     private final EnquiryService enquiryService;
+    private final OrderService orderService;
+    private final ReviewService reviewService;
 
-    public MypageController(BasketService basketService, UserService userService, EnquiryService enquiryService) {
+    public MypageController(BasketService basketService, UserService userService,
+                            EnquiryService enquiryService, OrderService orderService,
+                            ReviewService reviewService) {
         this.basketService = basketService;
         this.userService = userService;
         this.enquiryService = enquiryService;
+        this.orderService = orderService;
+        this.reviewService = reviewService;
     }
 
     @PostMapping("mypage/accountPassword")
@@ -106,4 +108,50 @@ public class MypageController {
 
         return "redirect:/mypage/basket";
     }
+
+    @GetMapping("mypage/orderList")
+    public String orderList(Model model,HttpServletRequest request){
+        HttpSession session = request.getSession();
+        UserVO user =(UserVO) session.getAttribute("user");
+
+        List<OrderViewVO> list = orderService.select_order_view(user.getUser_code());
+
+        model.addAttribute("list",list);
+
+        return "mypage/orderList";
+
+    }
+
+    @GetMapping("mypage/order_detail")
+    public String order_detail(int order_code,Model model){
+        OrderViewVO order_view = orderService.findOrderView(order_code);
+        model.addAttribute("order_view",order_view);
+        return "mypage/order_detail";
+    }
+
+    @GetMapping("/mypage/reviewList")
+    public String reviewList(HttpServletRequest request,Model model){
+        HttpSession session = request.getSession();
+        UserVO user =(UserVO) session.getAttribute("user");
+        List<OrderViewVO> orderList = orderService.select_order_view(user.getUser_code());
+        model.addAttribute("list",orderList);
+
+        return "mypage/reviewList"  ;
+    }
+
+    @GetMapping("mypage/reviewForm")
+    public String reviewForm(int order_code,Model model){
+        OrderViewVO orderView = orderService.findOrderView(order_code);
+        model.addAttribute("orderView",orderView);
+        model.addAttribute("review",new ReviewVO());
+
+        return "mypage/reviewForm";
+    }
+
+    @PostMapping("mypage/reviewForm")
+    public String review_insert(@ModelAttribute ReviewVO review){
+            reviewService.insert_review(review);
+        return "mypage/reviewList";
+    }
+
 }

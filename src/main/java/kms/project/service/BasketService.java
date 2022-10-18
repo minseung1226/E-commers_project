@@ -49,13 +49,11 @@ public class BasketService {
         basketRepository.delete_basket(basket_code);
     }
 
-    public List<BasketViewVO> select_choiceBasket_view(int user_code,String basket_check){
+    public List<BasketViewVO> select_choiceBasket_view(String basket_check){
         String[] codeArray = basket_check.split(",");
-        Map<String,Object> map = new HashMap<>();
-        map.put("user_code",user_code);
-        map.put("codeArray",codeArray);
 
-        return basketRepository.select_choiceBasket_view(map);
+
+        return basketRepository.select_choiceBasket_view(codeArray);
     }
 
 }

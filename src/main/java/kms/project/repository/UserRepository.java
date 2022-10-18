@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -36,5 +37,12 @@ public class UserRepository {
 
     public void updateUser(UserUpdateDto user){
         userMapper.updateUser(user);
+    }
+
+    public void updateCon_date(int user_code){
+        userMapper.updateCon_date(user_code);
+    }
+    public void updateUser_payment(Map<String,Object> map){
+        userMapper.updateUser_payment(map);
     }
 }

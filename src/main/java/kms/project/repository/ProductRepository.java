@@ -53,4 +53,8 @@ public class ProductRepository {
         return mapper.select_search(map);
     }
 
+    public void update_count(Map<String,Object> map){
+        mapper.update_count(map);
+    }
+
 }

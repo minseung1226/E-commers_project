@@ -3,11 +3,9 @@ package kms.project.controller;
 import kms.project.controller.validation.UserValidator;
 import kms.project.dto.UserUpdateDto;
 import kms.project.service.BasketService;
+import kms.project.service.OrderService;
 import kms.project.service.UserService;
-import kms.project.vo.BasketVO;
-import kms.project.vo.BasketViewVO;
-import kms.project.vo.DetailVO;
-import kms.project.vo.UserVO;
+import kms.project.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,10 +30,13 @@ public class UserController {
 
     private final BasketService basketService;
 
-    public UserController(UserService userService, Validator userValidator, BasketService basketService) {
+    private final OrderService orderService;
+
+    public UserController(UserService userService, Validator userValidator, BasketService basketService, OrderService orderService) {
         this.userService = userService;
         this.userValidator = userValidator;
         this.basketService = basketService;
+        this.orderService = orderService;
     }
 
     @InitBinder
@@ -57,6 +58,7 @@ public class UserController {
         } else if (!findUserVO.getUser_pw().equals(user_pw)) {
             result = "잘못된 비밀번호 입니다";
         } else {
+            userService.updateCon_date(findUserVO.getUser_code());
             HttpSession session = request.getSession();
             session.setAttribute("user", findUserVO);
             result = "ok";
@@ -73,6 +75,7 @@ public class UserController {
 
         return "redirect:/";
     }
+
 
 
     @PostMapping("user/idCheck")
@@ -177,7 +180,7 @@ public class UserController {
         HttpSession session = request.getSession();
         UserVO user = (UserVO)session.getAttribute("user");
 
-        List<BasketViewVO> list = basketService.select_choiceBasket_view(user.getUser_code(), basket_check);
+        List<BasketViewVO> list = basketService.select_choiceBasket_view( basket_check);
 
         model.addAttribute("list",list);
         model.addAttribute("order_payment",order_payment);
@@ -186,6 +189,13 @@ public class UserController {
         return "user/orderForm";
     }
 
+
+    @PostMapping("user/product_order")
+    public String orderInsert(@ModelAttribute OrderVO order,String detail_codeList){
+       orderService.insert_order(order,detail_codeList);
+
+        return "redirect:/mypage/orderList";
+    }
 
 
 

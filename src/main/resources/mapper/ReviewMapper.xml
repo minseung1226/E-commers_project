@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kms.project.repository.mapper.ReviewMapper">
+    <insert id="insert_review" parameterType="ReviewVO">
+        insert into project.review(user_code,order_code,product_code,review_content,review_score,review_regdate,review_info)
+            values(#{review.user_code},#{review.order_code},#{review.product_code},
+                   #{review.review_content},#{review.review_score},current_date,#{review.review_info})
+    </insert>
+</mapper>
