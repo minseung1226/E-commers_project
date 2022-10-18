@@ -62,6 +62,36 @@
         .quantity_class{
             margin-top: 30px;
         }
+        .img_div img{
+            width: 80%;
+            margin-left: 10%;
+        }
+
+        fieldset{
+            display: inline-block;
+            direction: rtl;
+            border:0;
+        }
+        fieldset legend{
+            text-align: right;
+        }
+        input[type=radio]{
+            display: none;
+        }
+        fieldset label{
+            font-size: 2em;
+            color: transparent;
+            text-shadow: 0 0 0 #f0f0f0;
+        }
+        fieldset label:hover{
+            text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+        }
+        fieldset label:hover ~ label{
+            text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+        }
+        input[type=radio]:checked ~ label{
+            text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+        }
     </style>
 
 
@@ -136,12 +166,39 @@
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
                      tabindex="0">
+                    <div class="img_div">
                     <img th:src="${product.product_img2}">
 
                     <img th:src="${product.product_img3}">
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"
-                     tabindex="0">리뷰 다는곳
+                     tabindex="0">
+
+                    <div class="card" th:each="list:${reviewList}">
+                        <div class="card-body">
+                            <div><b th:text="${list.user_name}"></b></div>
+                            <fieldset>
+                                <input type="radio" name="review_score" value="5" id="rate1"
+                                    th:checked="${list.review_score==5?true:false}" disabled><label
+                                    for="rate1">★</label>
+                                <input type="radio" name="review_score" value="4" id="rate2"
+                                       th:checked="${list.review_score==4?true:false}" disabled><label
+                                    for="rate2">★</label>
+                                <input type="radio" name="review_score" value="3" id="rate3"
+                                       th:checked="${list.review_score==3?true:false}" disabled><label
+                                    for="rate3">★</label>
+                                <input type="radio" name="review_score" value="2" id="rate4"
+                                       th:checked="${list.review_score==2?true:false}" disabled><label
+                                    for="rate4">★</label>
+                                <input type="radio" name="reviewStar" value="1" id="rate5"
+                                       th:checked="${list.review_score==1?true:false}" disabled><label
+                                    for="rate5">★</label>
+                            </fieldset>
+                            <div th:text="${list.review_info}"></div>
+                            <div><b th:text="${list.review_content}"></b></div>
+                        </div>
+                    </div>
                 </div>
 
             </div>

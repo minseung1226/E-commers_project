@@ -123,7 +123,8 @@
                         <input type="hidden" name="user_code" th:value="${orderView.user_code}">
                         <input type="hidden" name="product_code" th:value="${orderView.product_code}">
                         <input type="hidden" name="order_code" th:value="${orderView.order_code}">
-                        <button class="btn btn-primary" id="submit_btn" type="submit">전송하기</button>
+                        <input type="hidden" name="user_name" th:value="${session.user.user_name}">
+                        <button class="btn btn-primary" id="submit_btn" type="submit">리뷰 저장</button>
                     </div>
                 </form>
 

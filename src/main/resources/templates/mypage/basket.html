@@ -52,7 +52,7 @@
                 <h2>장바구니</h2>
             </div>
             <form method="post" >
-            <div class="del_all">
+            <div class="del_all" th:unless="${list.size()==0}">
                 <input type="checkbox" id="all_check" name="all_check" class="form-check-input">
                 <button type="submit" id="del_btn" class="btn btn-primary btn-sm">삭제</button>
             </div>
@@ -78,7 +78,7 @@
                 </div>
             </div>
 
-            <div class="d-grid gap-2 col-6 mx-auto" id="pay_div">
+            <div class="d-grid gap-2 col-6 mx-auto" id="pay_div" th:unless="${list.size()==0}">
 
                 <button type="submit" class="btn btn-primary btn-lg" id="order_btn" disabled>
                     <b id="all_price">0</b> 원

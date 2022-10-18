@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -182,6 +183,14 @@ public class AdminController {
         detailService.updateDetail(product_code,size,color);
 
         return "redirect:/admin/recent_register";
+    }
+
+    @GetMapping("admin/sales_status")
+    public String salesStatus(Model model){
+        List<ProductVO> list = new ArrayList<>();
+        model.addAttribute("list",list);
+
+        return "admin/sales_status";
     }
 
 }

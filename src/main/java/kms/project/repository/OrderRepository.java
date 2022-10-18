@@ -27,4 +27,8 @@ public class OrderRepository {
     public OrderViewVO findOrderView(int order_code){
         return orderMapper.findOrderView(order_code);
     }
+
+    public void update_status(int order_code){
+        orderMapper.update_status(order_code);
+    }
 }

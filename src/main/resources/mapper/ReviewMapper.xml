@@ -3,8 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kms.project.repository.mapper.ReviewMapper">
     <insert id="insert_review" parameterType="ReviewVO">
-        insert into project.review(user_code,order_code,product_code,review_content,review_score,review_regdate,review_info)
-            values(#{review.user_code},#{review.order_code},#{review.product_code},
+        insert into project.review(user_code,order_code,product_code,user_name,review_content,review_score,review_regdate,review_info)
+            values(#{review.user_code},#{review.order_code},#{review.product_code},#{review.user_name},
                    #{review.review_content},#{review.review_score},current_date,#{review.review_info})
     </insert>
+
+    <update id="update_review" parameterType="ReviewVO">
+        update project.review set review_content=#{review.review_content},review_score=#{review.review_score}
+                            where review_code=#{review.review_code}
+    </update>
 </mapper>

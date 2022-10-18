@@ -151,7 +151,22 @@ public class MypageController {
     @PostMapping("mypage/reviewForm")
     public String review_insert(@ModelAttribute ReviewVO review){
             reviewService.insert_review(review);
-        return "mypage/reviewList";
+        return "redirect:/mypage/reviewList";
+    }
+
+    @GetMapping("mypage/review_modify")
+    public String review_modifyForm(int order_code,Model model){
+        ReviewViewVO review = reviewService.find_review_view(order_code);
+        model.addAttribute("review_view",review);
+
+        return "mypage/review_modify";
+    }
+
+    @PostMapping("mypage/review_modify")
+    public String review_modify(ReviewVO review){
+        reviewService.update_review(review);
+
+        return"redirect:/mypage/reviewList";
     }
 
 }
