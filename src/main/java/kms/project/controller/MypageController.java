@@ -1,6 +1,5 @@
 package kms.project.controller;
 
-import kms.project.dto.UserUpdateDto;
 import kms.project.service.*;
 import kms.project.vo.*;
 import lombok.extern.slf4j.Slf4j;
@@ -48,7 +47,7 @@ public class MypageController {
     }
 
     @PostMapping("user/updateUser")
-    public String updateUser(@ModelAttribute("user") UserUpdateDto user, HttpServletRequest request) {
+    public String updateUser(@ModelAttribute("user") UserVO user, HttpServletRequest request) {
         userService.updateUser(user);
 
         HttpSession preSession = request.getSession();

@@ -1,6 +1,4 @@
 package kms.project.repository.mapper;
-
-import kms.project.dto.UserUpdateDto;
 import kms.project.vo.UserVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -17,7 +15,7 @@ public interface UserMapper {
 
     void updatePw(@Param("user") UserVO user);
 
-    void updateUser(@Param("user")UserUpdateDto user);
+    void updateUser(@Param("user")UserVO user);
 
     @Update("update project.user set user_con_date=current_date where user_code=#{user_code}")
     void updateCon_date(int user_code);

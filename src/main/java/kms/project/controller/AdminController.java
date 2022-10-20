@@ -7,10 +7,7 @@ import kms.project.service.AdminService;
 import kms.project.service.DetailService;
 import kms.project.service.EnquiryService;
 import kms.project.service.ProductService;
-import kms.project.vo.AdminVO;
-import kms.project.vo.DivisionVO;
-import kms.project.vo.EnquiryVO;
-import kms.project.vo.ProductVO;
+import kms.project.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +52,7 @@ public class AdminController {
         model.addAttribute("admin", new AdminVO());
         return "/admin/loginForm";
     }
+
 
     @PostMapping("/admin/Login")
     public String adminLogin(@ModelAttribute("admin") AdminVO admin, BindingResult result, HttpServletRequest request) {
@@ -191,6 +190,28 @@ public class AdminController {
         model.addAttribute("list",list);
 
         return "admin/sales_status";
+    }
+
+    @PostMapping("admin_sales_status/search")
+    public String sales_status_search(String search,String start_date,String end_date,Model model){
+        Map<String,String> map = new HashMap<>();
+        map.put("search",search);
+        map.put("start_date",start_date);
+        map.put("end_date",end_date);
+        List<SalesStatusVO> list = productService.sale_status(map);
+
+        int all_quantity=0;
+        int all_payment=0;
+        for(int i = 0 ; i < list.size();i++){
+            all_payment+=list.get(i).getOrder_payment();
+            all_quantity+=list.get(i).getOrder_quantity();
+        }
+
+        model.addAttribute("list",list);
+        model.addAttribute("all_quantity",all_quantity);
+        model.addAttribute("all_payment",all_payment);
+        return "template/sales_statusList";
+
     }
 
 }

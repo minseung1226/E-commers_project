@@ -1,7 +1,6 @@
 package kms.project.controller;
 
 import kms.project.controller.validation.UserValidator;
-import kms.project.dto.UserUpdateDto;
 import kms.project.service.BasketService;
 import kms.project.service.OrderService;
 import kms.project.service.UserService;

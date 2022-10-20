@@ -20,7 +20,7 @@
         UPDATE project.user set user_pw=#{user.user_pw} where user_id=#{user.user_id}
     </update>
 
-    <update id="updateUser" parameterType="UserUpdateDto">
+    <update id="updateUser" parameterType="UserVO">
         update project.user set user_birth=#{user.user_birth},
         user_phone=#{user.user_phone},user_addr1=#{user.user_addr1},user_addr2=#{user.user_addr2}
         where user_id=#{user.user_id}

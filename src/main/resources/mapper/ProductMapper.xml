@@ -54,12 +54,22 @@
         update project.product set product_count = product_count+#{product_count} where product_code=#{product_code}
     </update>
 
- <!--   <update id="update_count">
-        <foreach collection="list" item="map" separator=";">
-            update project.product set product_count=product_count+#{map.product_count} product_code=#{map.product_code}
+    <select id="sales_status" parameterType="map" resultType="SalesStatusVO">
+        select * from project.sales_status
+    <where>
+        <if test="start_date!=null and start_date!=''">
+            <![CDATA[ and order_date >= STR_TO_DATE(#{start_date}, '%Y-%m-%d')]]>
+        </if>
 
-        </foreach>
-    </update>
--->
+        <if test="end_date!=null and end_date!=''">
+            <![CDATA[ and order_date <= STR_TO_DATE(#{end_date}, '%Y-%m-%d')]]>
+        </if>
+        
+        <if test="search!=null and search!=''">
+            and division_mType=#{search} or division_lType=#{search} or product_name like concat('%',#{search},'%')
+        </if>
+    </where>
+    order by product_code
+    </select>
 
 </mapper>

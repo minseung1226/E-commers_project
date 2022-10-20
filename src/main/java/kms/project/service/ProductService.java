@@ -4,6 +4,7 @@ import kms.project.repository.DetailRepository;
 import kms.project.repository.ProductRepository;
 import kms.project.vo.DivisionVO;
 import kms.project.vo.ProductVO;
+import kms.project.vo.SalesStatusVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,5 +58,26 @@ public class ProductService {
         map.put("division_lType",division_lType);
         map.put("search",search);
         return productRepository.select_search(map);
+    }
+
+    public List<SalesStatusVO> sale_status(Map<String,String> map){
+        // 같은 상품끼리 묶기
+        List<SalesStatusVO> list = productRepository.sale_status(map); // 검색조건에 해당하는 판매현황
+        int now_index=0;
+        int compare_index=1;
+        while (true){
+            if(list.size()<=1)break;
+            if(list.get(now_index).getProduct_code()==list.get(compare_index).getProduct_code()){
+                list.get(now_index).setOrder_quantity(list.get(now_index).getOrder_quantity()+list.get(compare_index).getOrder_quantity());
+                list.get(now_index).setOrder_payment(list.get(now_index).getOrder_payment()+list.get(compare_index).getOrder_payment());
+                list.remove(compare_index);
+            }
+            else{
+                now_index++;
+                compare_index++;
+            }
+            if(list.size()==now_index+1)break;
+        }
+        return list;
     }
 }

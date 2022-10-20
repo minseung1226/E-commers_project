@@ -4,6 +4,7 @@ import kms.project.service.ProductService;
 import kms.project.vo.DetailVO;
 import kms.project.vo.DivisionVO;
 import kms.project.vo.ProductVO;
+import kms.project.vo.SalesStatusVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -43,4 +44,7 @@ public interface ProductMapper {
 
 //    update project.product p,project.detail d set p.product_count=2 where p.product_code=d.product_code and d.detail_code=19;
     void update_count(Map<String,Object> map);
+
+
+    List<SalesStatusVO> sales_status(Map<String,String> map);
 }

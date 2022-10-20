@@ -3,6 +3,7 @@ package kms.project.repository;
 import kms.project.repository.mapper.ProductMapper;
 import kms.project.vo.DivisionVO;
 import kms.project.vo.ProductVO;
+import kms.project.vo.SalesStatusVO;
 import org.springframework.stereotype.Repository;
 import org.w3c.dom.stylesheets.LinkStyle;
 
@@ -55,6 +56,10 @@ public class ProductRepository {
 
     public void update_count(Map<String,Object> map){
         mapper.update_count(map);
+    }
+
+    public List<SalesStatusVO> sale_status(Map<String,String> map){
+        return mapper.sales_status(map);
     }
 
 }
