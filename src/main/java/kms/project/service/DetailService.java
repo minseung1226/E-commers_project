@@ -1,5 +1,6 @@
 package kms.project.service;
 
+import kms.project.aop.Trace;
 import kms.project.repository.DetailRepository;
 import kms.project.vo.DetailVO;
 import lombok.extern.slf4j.Slf4j;
@@ -12,19 +13,20 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@Slf4j
+
+@Trace
 public class DetailService {
     private final DetailRepository detailRepository;
 
     public DetailService(DetailRepository detailRepository) {
         this.detailRepository = detailRepository;
     }
-
+    @Trace
     public void detailInsert(String size, String color,int product_code){
         List<DetailVO> list = makeList(product_code, size, color);
         detailRepository.detailInsert(list);
     }
-
+    @Trace
     public Map<String,String> select_detail(int product_code){
         List<DetailVO> list = detailRepository.selectDetail(product_code);
 
@@ -48,7 +50,7 @@ public class DetailService {
         detailRepository.detailInsert(list);
     }
 
-
+    @Trace
     public Map<String, List<String>> getSizeColor(int product_code){
         List<DetailVO> list = detailRepository.selectDetail(product_code);
         Map<String, List<String>> map = makeSizeColorList(list);
@@ -57,7 +59,7 @@ public class DetailService {
 
     }
 
-
+    @Trace
     private String changeString(List list){
         StringBuffer result = new StringBuffer();
         for(int i = 0 ; i < list.size() ; i++){
@@ -71,7 +73,7 @@ public class DetailService {
         return result.toString();
     }
 
-
+    @Trace
     private List<DetailVO> makeList(int product_code,String size,String color){
         List<DetailVO> list=new ArrayList<>();
         String[] sizeArr = size.split(",");
@@ -88,7 +90,7 @@ public class DetailService {
         }
         return list;
     }
-
+    @Trace
     private Map<String,List<String>> makeSizeColorList(List<DetailVO> list){
 
         List<String> sizeList = new ArrayList<>();

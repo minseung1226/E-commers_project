@@ -13,12 +13,12 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new UserInterceptor())
-                .order(1)
-                .addPathPatterns("/mypage/**,/user/logout,/user/basket_insert,/user/orderForm,/user/product_order");
-        registry.addInterceptor(new AdminInterceptor())
                 .order(2)
+                .addPathPatterns("/mypage/**","/user/logout","/user/basket_insert","/user/orderForm","/user/product_order");
+        registry.addInterceptor(new AdminInterceptor())
+                .order(1)
                 .addPathPatterns("/admin/**")
-                .excludePathPatterns("/admin,/admin/login");
+                .excludePathPatterns("/admin","/admin/login");
 
     }
 }

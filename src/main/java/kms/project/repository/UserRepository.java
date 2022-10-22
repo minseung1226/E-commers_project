@@ -1,5 +1,6 @@
 package kms.project.repository;
 
+import kms.project.aop.Trace;
 import kms.project.repository.mapper.UserMapper;
 import kms.project.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
@@ -10,37 +11,38 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Map;
 import java.util.Optional;
 
-@Slf4j
+
 @Repository
+@Trace
 public class UserRepository {
     private final UserMapper userMapper;
 
     public UserRepository(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
-
+    @Trace
     public UserVO findUser(String user_id){
-        log.info("user_id = {}",user_id);
         return userMapper.findUser(user_id);
     }
-
+    @Trace
     public int userInsert(UserVO user){
-         log.info("user_id={}" , user.getUser_id());
         return userMapper.userInsert(user);
 
     }
-
+    @Trace
     public void updatePw(UserVO user){
          userMapper.updatePw(user);
     }
-
+    @Trace
     public void updateUser(UserVO user){
         userMapper.updateUser(user);
     }
-
+    @Trace
     public void updateCon_date(int user_code){
+
         userMapper.updateCon_date(user_code);
     }
+    @Trace
     public void updateUser_payment(Map<String,Object> map){
         userMapper.updateUser_payment(map);
     }

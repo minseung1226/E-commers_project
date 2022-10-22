@@ -1,5 +1,6 @@
 package kms.project.service;
 
+import kms.project.aop.Trace;
 import kms.project.repository.BasketRepository;
 import kms.project.repository.OrderRepository;
 import kms.project.repository.ProductRepository;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@Slf4j
+@Trace
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -35,13 +36,12 @@ public class OrderService {
         this.userRepository = userRepository;
         this.productRepository = productRepository;
     }
-
+    @Trace
     @Transactional
     public void insert_order(OrderVO order, String detail_codeList){
         String[] code_array = detail_codeList.split(",");
 
         HashMap<String,Object> map = new HashMap<>();
-        log.info("user_code={}" ,order.getUser_code());
 
 
         map.put("user_code",order.getUser_code())   ;
@@ -107,11 +107,11 @@ public class OrderService {
         }
         return list;
     }
-
+    @Trace
     public List<OrderViewVO> select_order_view(int user_code){
         return orderRepository.select_order_view(user_code);
     }
-
+    @Trace
     public OrderViewVO findOrderView(int order_code){
         return orderRepository.findOrderView(order_code);
     }

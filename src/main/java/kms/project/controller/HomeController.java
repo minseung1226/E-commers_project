@@ -1,5 +1,6 @@
 package kms.project.controller;
 
+import kms.project.aop.Trace;
 import kms.project.service.ProductService;
 import kms.project.vo.DivisionVO;
 import kms.project.vo.ProductVO;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Controller
 @Slf4j
+@Trace
 public class HomeController {
     private final ProductService productService;
 
@@ -23,6 +25,7 @@ public class HomeController {
     }
 
     @GetMapping(value = {"/","user/home"})
+    @Trace
     public String home(Model model,HttpServletRequest request){
         HttpSession session = request.getSession();
         if(session.getAttribute("divisionList")==null){

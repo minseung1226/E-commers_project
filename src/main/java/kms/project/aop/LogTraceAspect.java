@@ -17,19 +17,19 @@ public class LogTraceAspect {
         this.logTrace = logTrace;
     }
 
-    @Pointcut("execution( * kms.project.controller.*.*(..))")
+    @Pointcut("execution(* kms.project.controller.*.*(..))")
     private void controller(){};
 
-    @Pointcut("execution( * kms.project.service.*.*(..))")
+    @Pointcut("execution(* kms.project.service..*.*(..))")
     private void service(){};
 
-    @Pointcut("execution( * kms.project.repository.*.*(..))")
+    @Pointcut("execution(* kms.project.repository..*.*(..))")
     private void repository(){};
-
+/*
     @Pointcut("execution( * kms.project.aop.*.*(..))")
-    private void aop(){};
+    private void aop(){};*/
 
-    @Around("controller() && service() && repository()&&aop()")
+    @Around("@annotation(kms.project.aop.Trace)")
     public Object execute(ProceedingJoinPoint joinPoint)throws Throwable{
         TraceStatus status = null;
         try {

@@ -1,5 +1,6 @@
 package kms.project.controller;
 
+import kms.project.aop.Trace;
 import kms.project.service.DetailService;
 import kms.project.service.ProductService;
 import kms.project.service.ReviewService;
@@ -15,8 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 import java.util.Map;
 
-@Slf4j
 @Controller
+@Trace
 public class ShoppingController {
     private final ProductService productService;
     private final DetailService detailService;
@@ -30,6 +31,7 @@ public class ShoppingController {
     }
 
     @GetMapping("shopping/product_info")
+    @Trace
     public String product_info(int product_code,Model model){
         ProductVO product = productService.select_product(product_code);
         Map<String, List<String>> sizeColor = detailService.getSizeColor(product_code);
@@ -44,6 +46,7 @@ public class ShoppingController {
     }
 
     @GetMapping("shopping/product_search")
+    @Trace
     public String product_search(String division_lType,String division_mType,String search,Model model){
         List<ProductVO> productList = productService.select_search(division_mType, division_lType, search);
         model.addAttribute("list",productList);

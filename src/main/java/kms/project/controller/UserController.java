@@ -1,5 +1,6 @@
 package kms.project.controller;
 
+import kms.project.aop.Trace;
 import kms.project.controller.validation.UserValidator;
 import kms.project.service.BasketService;
 import kms.project.service.OrderService;
@@ -21,7 +22,8 @@ import java.util.List;
 import java.util.Random;
 
 @Controller
-@Slf4j
+
+@Trace
 public class UserController {
 
     private final UserService userService;
@@ -47,8 +49,8 @@ public class UserController {
 
     @PostMapping("/user/userCheck")
     @ResponseBody
+    @Trace
     public String userCheck(String user_id, String user_pw, HttpServletRequest request) {
-        log.info("UserController.idcheck() user_id={} , user_pw={}", user_id, user_pw);
         UserVO findUserVO = userService.findUser(user_id);
 
         String result = "";
@@ -67,9 +69,9 @@ public class UserController {
     }
 
     @GetMapping("/user/logout")
+    @Trace
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        log.info("UserController.logout");
         session.invalidate();
 
         return "redirect:/";
@@ -79,9 +81,8 @@ public class UserController {
 
     @PostMapping("user/idCheck")
     @ResponseBody
+    @Trace
     public String idCheck(String user_id) {
-        log.info("userController.idCheck start");
-        log.info("user_id={}", user_id);
         UserVO findUser = userService.findUser(user_id);
         if (findUser == null) {
             return "ok";
@@ -90,17 +91,15 @@ public class UserController {
     }
 
     @PostMapping("user/joinForm")
+    @Trace
     public String joinForm(@ModelAttribute("user") UserVO user) {
-        log.info("user_phone={}", user.getUser_phone());
         return "user/joinForm";
     }
 
     @PostMapping("/user/join")
+    @Trace
     public String join(@Validated @ModelAttribute("user") UserVO user, BindingResult result, HttpServletRequest request) {
         if (result.hasErrors()) {
-
-            log.info("error 발견 = {}", result);
-
             return "user/joinForm";
         }
 
@@ -113,12 +112,14 @@ public class UserController {
     }
 
     @GetMapping("user/certification")
+    @Trace
     public String certification() {
         return "user/certification";
     }
 
     @GetMapping("user/sendMessage")
     @ResponseBody
+    @Trace
     public String sendMessage(@ModelAttribute("user") UserVO user) {
         if (user.getUser_id()!=null) {
             user = userService.findUser(user.getUser_id());
@@ -132,7 +133,6 @@ public class UserController {
             cer_num += Integer.toString(random.nextInt(10));
         }
         String user_phone = user.getUser_phone();
-        log.info("수신자 번호 : {} , 인증번호 :{}", user_phone.replace("-", ""), cer_num);
         userService.sendMessage(user.getUser_phone().replace("-", ""), cer_num);
         return cer_num;
 
@@ -141,30 +141,34 @@ public class UserController {
     }
 
     @GetMapping("user/login")
+    @Trace
     public String loginForm() {
         return "user/login";
     }
 
     @GetMapping("user/find")
+    @Trace
     public String findForm() {
         return "user/findForm";
     }
 
     @PostMapping("user/passwordForm")
+    @Trace
     public String passwordForm(String user_id, Model model) {
-        log.info("user_id={}", user_id);
         model.addAttribute("user_id", user_id);
         return "user/passwordForm";
 
     }
 
     @PostMapping("user/password")
+    @Trace
     public String password(@ModelAttribute UserVO user) {
         userService.updatePw(user);
             return "user/login";
     }
 
     @PostMapping("user/basket_insert")
+    @Trace
     public String basket_insert(BasketVO basket, DetailVO detail,HttpServletRequest request){
         HttpSession session = request.getSession();
         UserVO user =(UserVO) session.getAttribute("user");
@@ -175,6 +179,7 @@ public class UserController {
     }
 
     @PostMapping("user/orderForm")
+    @Trace
     public String orderForm(String basket_check,int order_payment,HttpServletRequest request,Model model){
         HttpSession session = request.getSession();
         UserVO user = (UserVO)session.getAttribute("user");
@@ -190,6 +195,7 @@ public class UserController {
 
 
     @PostMapping("user/product_order")
+    @Trace
     public String orderInsert(@ModelAttribute OrderVO order,String detail_codeList){
        orderService.insert_order(order,detail_codeList);
 

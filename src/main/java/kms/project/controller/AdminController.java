@@ -1,5 +1,6 @@
 package kms.project.controller;
 
+import kms.project.aop.Trace;
 import kms.project.controller.validation.AdminValidator;
 import kms.project.controller.validation.ProductValidator;
 import kms.project.repository.ProductRepository;
@@ -26,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@Slf4j
+@Trace
 public class AdminController {
     private final AdminService adminService;
     private final EnquiryService enquiryService;
@@ -47,6 +48,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
+    @Trace
     public String adminForm(Model model,HttpServletRequest request) {
         request.getSession().invalidate();
         model.addAttribute("admin", new AdminVO());
@@ -54,7 +56,8 @@ public class AdminController {
     }
 
 
-    @PostMapping("/admin/Login")
+    @PostMapping("/admin/login")
+    @Trace
     public String adminLogin(@ModelAttribute("admin") AdminVO admin, BindingResult result, HttpServletRequest request) {
         adminValidator.validate(admin, result);
         if (result.hasErrors()) {
@@ -72,6 +75,7 @@ public class AdminController {
     }
 
     @GetMapping("admin/enquiryList")
+    @Trace
     public String enquiryList(Model model) {
         List<EnquiryVO> list = enquiryService.selectAll();
         model.addAttribute("list", list);
@@ -80,6 +84,7 @@ public class AdminController {
     }
 
     @GetMapping("admin/answer")
+    @Trace
     public String enquiryAnswer(int enquiry_code, Model model) {
         EnquiryVO enquiry = enquiryService.enquiryselectOne(enquiry_code);
         model.addAttribute("enquiry", enquiry);
@@ -88,6 +93,7 @@ public class AdminController {
     }
 
     @PostMapping("admin/answer")
+    @Trace
     public String enquiryUpdate(@ModelAttribute("enquiry") EnquiryVO enquiry) {
         enquiryService.enquiryAnswer(enquiry);
 
@@ -95,6 +101,7 @@ public class AdminController {
     }
 
     @GetMapping("admin/product/add")
+    @Trace
     public String productForm(Model model) {
         List<DivisionVO> list = productService.divisionList();
         model.addAttribute("list",list);
@@ -104,6 +111,7 @@ public class AdminController {
 
     @PostMapping("admin/product/add")
     @Transactional
+    @Trace
     public String productAdd(@Validated @ModelAttribute("product") ProductVO product,BindingResult result,String size,String color,Model model){
         productValidator.validate(product,result);
         if (result.hasErrors()){
@@ -114,13 +122,13 @@ public class AdminController {
 
         productService.productInsert(product);
         detailService.detailInsert(size,color,product.getProduct_code());
-        log.info("product_code={}",product.getProduct_code());
 
         return "redirect:/admin/recent_register";
     }
 
 
     @GetMapping("/admin/recent_register")
+    @Trace
     public String recent_register(Model model){
         List<ProductVO> product = productService.recent_register();
         model.addAttribute("list",product);
@@ -131,6 +139,7 @@ public class AdminController {
 
     // 리턴을 상품 검색칸으로 옮기기
     @GetMapping("admin/delete_product")
+    @Trace
     public String delete(int product_code){
         productService.delete_productAndDetail(product_code);
 
@@ -138,16 +147,16 @@ public class AdminController {
     }
 
     @PostMapping("admin/product/modify")
+    @Trace
     public String product_modify(int product_code,Model model){
-        log.info("product_modify.product_code={}",product_code);
         model.addAttribute("product_code",product_code);
         return "/admin/product_infoAndDetail";
     }
 
 
     @GetMapping("admin/product/info_modify")
+    @Trace
     public String info_modifyForm(int product_code,Model model){
-        log.info("form.product_code={}",product_code);
         ProductVO productVO = productService.select_product(product_code);
         List<DivisionVO> list = productService.divisionList();
         model.addAttribute("product",productVO);
@@ -157,6 +166,7 @@ public class AdminController {
     }
 
     @PostMapping("admin/product/info_modify")
+    @Trace
     public String info_modify(@ModelAttribute("product") ProductVO product,BindingResult result,Model model){
         productValidator.validate(product,result);
         if (result.hasErrors()){
@@ -169,6 +179,7 @@ public class AdminController {
     }
 
     @GetMapping("admin/product/detail_modify")
+    @Trace
     public String detail_modifyForm(int product_code,Model model){
         Map<String, String> detail = detailService.select_detail(product_code);
         model.addAttribute("detail",detail);
@@ -178,6 +189,7 @@ public class AdminController {
     }
 
     @PostMapping("admin/product/detail_modify")
+    @Trace
     public String detail_modify(int product_code,String size,String color,Model model){
         detailService.updateDetail(product_code,size,color);
 
@@ -185,6 +197,7 @@ public class AdminController {
     }
 
     @GetMapping("admin/sales_status")
+    @Trace
     public String salesStatus(Model model){
         List<ProductVO> list = new ArrayList<>();
         model.addAttribute("list",list);
@@ -193,6 +206,7 @@ public class AdminController {
     }
 
     @PostMapping("admin_sales_status/search")
+    @Trace
     public String sales_status_search(String search,String start_date,String end_date,Model model){
         Map<String,String> map = new HashMap<>();
         map.put("search",search);

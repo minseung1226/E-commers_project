@@ -1,6 +1,7 @@
 package kms.project.service;
 
 
+import kms.project.aop.Trace;
 import kms.project.repository.UserRepository;
 import kms.project.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
@@ -15,8 +16,9 @@ import javax.swing.text.html.Option;
 import java.util.HashMap;
 import java.util.Optional;
 
-@Slf4j
+
 @Service
+@Trace
 public class UserService {
     private final UserRepository userRepository;
 
@@ -25,14 +27,13 @@ public class UserService {
     }
 
     public UserVO findUser(String user_id){
-        log.info("user_id={}",user_id);
         return userRepository.findUser(user_id);
     }
-
+    @Trace
     public int userInsert(UserVO user){
         return userRepository.userInsert(user);
     }
-
+    @Trace
     //sms문자 보내기
     public void sendMessage(String phoneNumber,String cerNum){
         String api_key="NCSDPSCNG9CQLBVW";
@@ -52,18 +53,17 @@ public class UserService {
         } catch (CoolsmsException e) {
             e.getMessage();
         }
-        log.info("message.send ={}" , json);
 
     }
-
+    @Trace
     public void updatePw(UserVO user){
         userRepository.updatePw(user);
     }
-
+    @Trace
     public void updateUser(UserVO user){
         userRepository.updateUser(user);
     }
-
+    @Trace
     public void updateCon_date(int user_code){
         userRepository.updateCon_date(user_code);
     }
