@@ -23,4 +23,13 @@ mvc 패턴을 도입한 쇼핑몰의 기본적인 기능과 구현 <br>
 
 
 <h2><b>화면 구성</b></h2>
+<h3>home</h3>
 
+
+
+<h3>Main Bar</h3>
+<img width="80%" src="https://user-images.githubusercontent.com/102594142/197385471-7593f59a-0d3d-45f4-9213-e0c93799affd.png">
+-> 회원,비회원,관리자에 따라 mainbar를 다르게 사용
+
+<br>
+<h3>
