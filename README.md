@@ -22,7 +22,7 @@ mvc 패턴을 도입한 쇼핑몰의 기본적인 기능과 구현 <br>
 <img src="https://user-images.githubusercontent.com/102594142/197384389-7c0bf66f-6801-42c9-933b-3085be60401e.png">
 
 
-<h2><b>화면 구성</b></h2>
+<h2><b>회원 화면 구성</b></h2>
 <h3>home</h3>
 <img src="https://user-images.githubusercontent.com/102594142/197386309-41a023fe-922c-4376-945f-2d95bacda5ee.png">
 <hr>
@@ -49,3 +49,13 @@ mvc 패턴을 도입한 쇼핑몰의 기본적인 기능과 구현 <br>
 <h3>상품 리뷰</h3>
 <img src="https://user-images.githubusercontent.com/102594142/197387162-672daa81-5e41-4764-9992-185c7518a9da.png">
 <h4>-> 주문완료한 상품에 한해서 리뷰작성 or 수정 가능 </h4>
+<hr>
+
+<h3>문의사항</h3>
+<img src="https://user-images.githubusercontent.com/102594142/197387316-4903e746-babc-4021-80ac-c08b8fff602d.png">
+
+<hr>
+
+<h2><b>관리자 화면 구성</b></h2>
+<img src=
+<h4>-> 관리자로 로그인시 회원이나 비회원유저와는 다르게 상품마다 아래 관리버튼을 통해 수정 삭제등을 할 수 있다
