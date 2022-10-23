@@ -71,5 +71,5 @@ mvc 패턴을 도입한 쇼핑몰의 기본적인 기능과 구현 <br>
 <h4>-> 날짜 or 검색어 기준 판매현황 보기 가능</h4>
 
 <h3>문의 사항<h3>
-<img src=>
+<img src="https://user-images.githubusercontent.com/102594142/197389873-78107ae6-062a-4493-9b5f-7e8bcd1ca12d.png">
 <h4>-> 회원의 문의사항을 답변하고 이미 답변한 사항을 재답변 가능 </h4>
