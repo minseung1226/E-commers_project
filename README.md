@@ -47,5 +47,5 @@ mvc 패턴을 도입한 쇼핑몰의 기본적인 기능과 구현 <br>
 <hr>
 
 <h3>상품 리뷰</h3>
-<img src="">
+<img src="https://user-images.githubusercontent.com/102594142/197387162-672daa81-5e41-4764-9992-185c7518a9da.png">
 <h4>-> 주문완료한 상품에 한해서 리뷰작성 or 수정 가능 </h4>
