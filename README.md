@@ -13,8 +13,14 @@ mvc 패턴을 도입한 쇼핑몰의 기본적인 기능과 구현 <br>
   <li>thymeleaf</li>
   <li>AOP</li>
   <li>AJAX</li>
-  <li></li>
+  <li>MySQL</li>
+  
 </ul>
 
 
-<h2><b></b></h2>
+<h2><b>DB 구조</b></h2>
+<img width="80%" src="https://user-images.githubusercontent.com/102594142/197384389-7c0bf66f-6801-42c9-933b-3085be60401e.png">
+
+
+<h2><b>화면 구성</b></h2>
+
