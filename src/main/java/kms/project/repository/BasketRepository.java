@@ -49,6 +49,7 @@ public class BasketRepository {
     public List<BasketViewVO> select_choiceBasket_view(String[] array){
         return basketMapper.select_choiceBasket_view(array);
     }
+
     @Trace
     public List<BasketViewVO> select_choiceBasket_view(Map<String,Object> map){
         return basketMapper.select_choiceBasket_view2(map);

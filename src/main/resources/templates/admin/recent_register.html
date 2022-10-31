@@ -73,12 +73,14 @@
                             <b th:text="|${#numbers.formatInteger(product.product_price,3,'COMMA')} 원|"></b>
                             </p>
                             <div class="btn-group">
-                                <form method="post">
-                                    <input type="hidden" id="product_code" name="product_code" th:value="${product.product_code}">
+                                <form action="/admin/product/modify" method="post" >
+                                    <input type="hidden" id="product_code" name="product_code"
+                                           th:value="${product.product_code}">
 
-                                    <button type="submit" id="modify_btn" class="btn btn-sm btn-outline-secondary">상품 수정</button>
-
-                                <button type="submit" id="del_btn" class="btn btn-sm btn-outline-secondary">상품 삭제</button>
+                                    <button type="submit" id="modify_btn" class="btn btn-sm btn-outline-secondary"
+                                    >상품 관리
+                                    </button>
+                                    +
                                 </form>
                             </div>
 

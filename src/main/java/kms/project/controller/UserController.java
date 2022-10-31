@@ -7,6 +7,7 @@ import kms.project.service.OrderService;
 import kms.project.service.UserService;
 import kms.project.vo.*;
 import lombok.extern.slf4j.Slf4j;
+import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -176,6 +177,20 @@ public class UserController {
 
         basketService.add_basket(basket,detail);
         return "redirect:/shopping/product_info?product_code="+detail.getProduct_code();
+    }
+
+    @PostMapping("user/order")
+    @Trace
+    public String one_order(BasketVO basket, DetailVO detail, HttpServletRequest request, Model model){
+        HttpSession session = request.getSession();
+        UserVO user = (UserVO) session.getAttribute("user");
+        basket.setUser_code(user.getUser_code());
+        List<BasketViewVO> list = basketService.add_basket_order(basket, detail);
+        model.addAttribute("list",list);
+        model.addAttribute("order_payment",list.get(0).getProduct_price());
+        return "user/orderForm";
+
+
     }
 
     @PostMapping("user/orderForm")

@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kms.project.repository.mapper.BasketMapper">
-    <insert id="insert_basket" parameterType="BasketVO">
+    <insert id="insert_basket" parameterType="BasketVO" useGeneratedKeys="true" keyColumn="basket_code"
+            keyProperty="basket_code">
         insert into project.basket(user_code,detail_code,basket_quantity)
         values(#{basket.user_code},#{basket.detail_code},#{basket.basket_quantity})
     </insert>

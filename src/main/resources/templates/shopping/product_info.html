@@ -257,6 +257,26 @@
         })
     })
 
+    $(function (){
+        $('#order_btn').click(function (){
+            if($('#size').val()=='size'){
+                alert('사이즈를 선택하세요');
+                return false;
+            }
+            if($('#color').val()=='color'){
+                alert("색상을 선택하세요");
+                return false;
+            }
+            if($('#quantity').val()==0){
+                alert("수량을 입력하세요");
+                return false;
+            }
+
+
+            $('form').attr('action','/user/order');
+        })
+    })
+
 
 </script>
 
